@@ -1,4 +1,4 @@
-package com.example.admallla.shumo;
+package com.example.admallla.terrenoeco;
 
 import android.content.Context;
 

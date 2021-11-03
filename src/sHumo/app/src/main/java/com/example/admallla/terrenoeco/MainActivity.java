@@ -1,9 +1,10 @@
-package com.example.admallla.shumo;
+package com.example.admallla.terrenoeco;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,12 +30,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     private final String ETIQUETA_LOG = "MainActivity";
-    Context mContext;
+    static Context mContext;
 
     LogicaFake logicaFake = new LogicaFake();
     private static final int CODIGO_PETICION_PERMISOS = 11223344;
 
     public TextView t;
+
+    GestionNotificaciones gestorNotidicaciones;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -54,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 ContextCompat.checkSelfPermission(this.mContext, Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED
                         || ContextCompat.checkSelfPermission(this.mContext, Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED
                         || ContextCompat.checkSelfPermission(this.mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this.mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                        || ContextCompat.checkSelfPermission(this.mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        || ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
 
         ) {
             ActivityCompat.requestPermissions(
@@ -71,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Log.d(ETIQUETA_LOG, " onCreate(): termina ");
+
+        gestorNotidicaciones = new GestionNotificaciones();
     }
 
 
@@ -111,4 +116,11 @@ public class MainActivity extends AppCompatActivity {
         // permissions this app might request.
     } // ()
 
+    public void test(View v){
+        gestorNotidicaciones.crearNotificacionAlertas(Color.RED,"Texto","Bibidabidibu");
+    }
+
+    public static Context getContext() {
+        return mContext;
+    }
 }

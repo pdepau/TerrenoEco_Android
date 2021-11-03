@@ -3,7 +3,7 @@
  * FECHA: 17/10/2021
  * DESCRIPCION: Clase para la comunicacion con la base de datos
  */
-package com.example.admallla.shumo;
+package com.example.admallla.terrenoeco;
 
 import android.util.Log;
 

@@ -1,4 +1,4 @@
-package com.example.admallla.shumo;
+package com.example.admallla.terrenoeco;
 
 import android.annotation.SuppressLint;
 import android.app.IntentService;
@@ -10,6 +10,7 @@ import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 
@@ -42,6 +43,8 @@ public class ServicioEscuharBeacons extends IntentService {
 
     LogicaFake logicaFake;
     BeaconsActivity beaconsActivity = BeaconsActivity.getInstance();
+    GestionNotificaciones gestorNotidicaciones;
+    int idNotificacion;
 
 
     /**
@@ -49,7 +52,7 @@ public class ServicioEscuharBeacons extends IntentService {
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public ServicioEscuharBeacons() {
-        super("HelloIntentService");
+        super("ServicioEscuharBeacons");
 
         BluetoothAdapter bta = BluetoothAdapter.getDefaultAdapter();
         this.elEscanner = bta.getBluetoothLeScanner();
@@ -58,6 +61,8 @@ public class ServicioEscuharBeacons extends IntentService {
 
         inicializarBlueTooth();
         Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.constructor: termina");
+
+        gestorNotidicaciones = new GestionNotificaciones();
     }
 
 
@@ -68,15 +73,17 @@ public class ServicioEscuharBeacons extends IntentService {
 
         Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.parar() ");
 
-
         if (this.seguir == false) {
             return;
         }
 
+        gestorNotidicaciones.quitarNotificacion(idNotificacion);
+        detenerBusquedaDispositivosBTLE();
         this.seguir = false;
         this.stopSelf();
 
         Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.parar() : acaba ");
+
 
     }
 
@@ -88,7 +95,7 @@ public class ServicioEscuharBeacons extends IntentService {
         Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onDestroy() ");
 
 
-        //this.parar(); // posiblemente no haga falta, si stopService() ya se carga el servicio y su worker thread
+        this.parar(); // posiblemente no haga falta, si stopService() ya se carga el servicio y su worker thread
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -102,6 +109,8 @@ public class ServicioEscuharBeacons extends IntentService {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onHandleIntent(Intent intent) {
+
+        idNotificacion = gestorNotidicaciones.crearNotificacionServicio(intent, "Servicio", "TExto y tal");
 
         this.tiempoDeEspera = intent.getLongExtra("tiempoDeEspera", /* default */ 50000);
         String dispositivoBuscado = intent.getStringExtra("dispositivoBuscado");
@@ -256,11 +265,15 @@ public class ServicioEscuharBeacons extends IntentService {
                 resultados.add(Utilidades.bytesToInt(tib.getMajor()));
                 resultados.add(Utilidades.bytesToInt(tib.getMinor()));
 
-                Log.d("", resultados.toString());
+                //todo:poner los valores según la base de datos
+                Integer valorUmbralAlto = 10;
+                if (resultados.get(1) > valorUmbralAlto) {
+                    gestorNotidicaciones.crearNotificacionAlertas(Color.RED, "ZONA ALTAMENTE CONTAMINADA", "Se ha detectado un valor de " + resultados.get(1) + " en la zona.");
+                }
 
 
                 Date date = new Date();
-                Medida m = new Medida(date.getTime() + "", resultados.get(1), BeaconsActivity.getLatitud()  + "", BeaconsActivity.getLongitut() + "");
+                Medida m = new Medida(date.getTime() + "", resultados.get(1), BeaconsActivity.getLatitud() + "", BeaconsActivity.getLongitut() + "");
 
                 Log.d(ETIQUETA_LOG, m.toString() + " a ");
 
@@ -285,7 +298,7 @@ public class ServicioEscuharBeacons extends IntentService {
 
         };
 
-        ScanFilter sf = new ScanFilter.Builder().setDeviceName(dispositivoBuscado).build();
+        ScanFilter sf = new ScanFilter.Builder().setDeviceAddress(dispositivoBuscado).build();
 
 
         Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): empezamos a escanear buscando: " + dispositivoBuscado);
@@ -339,8 +352,6 @@ public class ServicioEscuharBeacons extends IntentService {
         }
 
     } // ()
-
-
 
 
 } // class

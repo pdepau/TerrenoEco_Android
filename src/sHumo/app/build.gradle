@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.admallla.shumo"
+        applicationId "com.example.admallla.terrenoeco"
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 1

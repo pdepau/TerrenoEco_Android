@@ -1,4 +1,4 @@
-package com.example.admallla.shumo;
+package com.example.admallla.terrenoeco;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -86,7 +86,7 @@ public class BeaconsActivity extends AppCompatActivity implements LocationListen
      *
      * @param v Vista requerida por el onClick
      */
-    public void encender(View v) {
+    public void encenderServicioBuscarBeacons(View v) {
         Log.d(ETIQUETA_LOG, " boton arrancar servicio Pulsado");
 
         if (this.elIntentDelServicio != null) {
@@ -102,7 +102,7 @@ public class BeaconsActivity extends AppCompatActivity implements LocationListen
         this.elIntentDelServicio.putExtra("tiempoDeEspera", (long) 5000);
         this.elIntentDelServicio.putExtra("dispositivoBuscado", e.getText().toString());
 
-        startService(this.elIntentDelServicio);
+        startService(elIntentDelServicio);
         activado = true;
 
 
