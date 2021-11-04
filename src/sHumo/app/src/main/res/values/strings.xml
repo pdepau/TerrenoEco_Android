@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">Terreno Eco</string>
-    <string name="channel_name">alertas</string>
-    <string name="channel_description">Muestra las notificaciones derivadas del sensor</string>
-</resources>

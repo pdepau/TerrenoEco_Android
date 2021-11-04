@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Biometric App</string>
+    <string name="buscar">Iniciar Servicio</string>
+    <string name="parar_servicio">Parar servicio</string>
+</resources>
