@@ -45,7 +45,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
     private Location ultimaLocalizacion;
 
-    GestionNotificaciones gestorNotidicaciones;
+    GestionNotificaciones   gestorNotidicaciones;
     int idNotificacion;
     Intent elIntentDelServicio;
 

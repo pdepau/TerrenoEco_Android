@@ -1,5 +1,9 @@
 package com.lbelmar.biometric;
-
+// -------------------------------------------------------
+// Autor: Adrian Maldonado
+// Descripcion: AGestiona las notificaciones de la app
+// Fecha: 15/10/2021
+// -------------------------------------------------------
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -42,6 +46,17 @@ public class GestionNotificaciones {
 
     }
 
+    /**
+     * N: color, Texto: titulo, Texto: descripcion
+     * =>
+     * crearNotificacionAlertas()
+     *
+     * Crea una notificacion con un color un titulo y una descripcion en concreto
+     *
+     * @param color
+     * @param titulo
+     * @param descripcion
+     */
     public void crearNotificacionAlertas(int color, String titulo, String descripcion) {
 
         Intent intent = new Intent(MainActivity.getContext(), MainActivity.class);
@@ -64,6 +79,20 @@ public class GestionNotificaciones {
         notificationManager.notify(notificationId, builder.build());
     }
 
+    /**
+     * Intent: intent, Texto: titulo, Texto: descripcion
+     * <=
+     * crearNotificacionServicio()
+     * =>
+     * N
+     *
+     * Crea un servicio encargado de las notificaciones
+     *
+     * @param intent
+     * @param titulo
+     * @param descripcion
+     * @return notificationID
+     */
     public int crearNotificacionServicio(Intent intent, String titulo, String descripcion) {
 
         PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.getContext(), 0, intent, 0);
@@ -90,6 +119,18 @@ public class GestionNotificaciones {
 
     }
 
+    /**
+     * N: idNotificacion, Intent: intent, Texto: titulo, Texto: descripcion
+     * <=
+     * actualizarNotificacoinServicio()
+     *
+     * Actualiza los datos de una notificacion en concreto
+     *
+     * @param idNotificacion
+     * @param intent
+     * @param titulo
+     * @param descripcion
+     */
     public void actualizarNotificacionServicio(int idNotificacion,Intent intent, String titulo, String descripcion){
         PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.getContext(), 0, intent, 0);
 
