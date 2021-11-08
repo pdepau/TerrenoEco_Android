@@ -1,19 +1,24 @@
-package com.lbelmar.biometric;
+package com.lbelmar.terrenoeco;
 
 // -------------------------------------------------------
 // Autor: Luis Belloch
 // Descripcion: Objeto medida para administrar datos
 // Fecha: 15/10/2021
 // -------------------------------------------------------
-import java.time.LocalDateTime;
+
+import java.util.Date;
 
 public class Medida {
 
     int medicion_valor;
-    String fechaConFormato;
+    long fechaConFormato;
     double latitud;
     double longitud;
+    int usuario;
+    int tipo;
+    int nodo;
 
+    Date date;
     /**
      * Constructor de un objeto Medida
      * @param medicion_valor medicion CO2
@@ -21,10 +26,14 @@ public class Medida {
      * @param longitud en grados
      */
     public Medida(int medicion_valor, double latitud, double longitud) {
-        this.fechaConFormato = "2021-11-01 20:23:44.000000";
+        date = new Date();
+        this.fechaConFormato = date.getTime();
         this.medicion_valor = medicion_valor;
         this.latitud = latitud;
         this.longitud = longitud;
+        this.usuario = 1;
+        this.tipo = 1;
+        this.nodo = 1;
     }
 
     /**
@@ -35,10 +44,13 @@ public class Medida {
     @Override
     public String toString() {
         String res = "{" +
-                "\"valor\":\""+this.medicion_valor+ "\", " +
-                "\"fecha\":\""+fechaConFormato+"\", " +
+                "\"valor\":"+this.medicion_valor+ ", " +
+                "\"tiempo\":\""+this.fechaConFormato+"\", " +
                 "\"latitud\":\""+this.latitud+"\", " +
-                "\"longitud\":\""+this.longitud+"\"" +
+                "\"longitud\":\""+this.longitud+"\"," +
+                "\"usuario\":"+this.usuario+"," +
+                "\"tipo\":"+this.tipo+"," +
+                "\"nodo\":"+this.nodo+"" +
                 "}";
         return res;
     }
@@ -62,7 +74,7 @@ public class Medida {
      *
      * @return fecha en formato DateTime
      */
-    public String getFechaConFormato() {
+    public Long getFechaConFormato() {
         return fechaConFormato;
     }
 

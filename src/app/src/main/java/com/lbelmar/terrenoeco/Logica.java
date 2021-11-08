@@ -1,4 +1,4 @@
-package com.lbelmar.biometric;
+package com.lbelmar.terrenoeco;
 // -------------------------------------------------------
 // Autor: Luis Belloch
 // Descripcion: Logica fake para acceder a la API
@@ -7,8 +7,6 @@ package com.lbelmar.biometric;
 
 import android.util.Log;
 
-import java.util.Arrays;
-
 public class Logica {
 
     /**
@@ -16,7 +14,7 @@ public class Logica {
      * Recibe las medidas del servidor REST
      */
     public static void obtenerTodasLasMedidas() { // Debe ser static para poder ser llamado desde el servicio
-        new PeticionarioREST().hacerPeticionREST("GET", Constantes.URL + "medidas", null, new PeticionarioREST.RespuestaREST() {
+        new PeticionarioREST().hacerPeticionREST("GET", Constantes.URL + "mediciones", null, new PeticionarioREST.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
                 Log.d("REST", cuerpo);
@@ -29,7 +27,7 @@ public class Logica {
      * Recibe la ultima medida de la base de datos
      */
     public static void obtenerUltimaMedida() {
-        new PeticionarioREST().hacerPeticionREST("GET", Constantes.URL + "medida/ultima", null, new PeticionarioREST.RespuestaREST() {
+        new PeticionarioREST().hacerPeticionREST("GET", Constantes.URL + "mediciones/ultima", null, new PeticionarioREST.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
                 Log.d("REST", cuerpo);
@@ -45,7 +43,7 @@ public class Logica {
      */
     public static void guardarMedida(Medida medida) {
         Log.d("REST", "medida enviada: " + medida.toString());
-        new PeticionarioREST().hacerPeticionREST("POST", Constantes.URL + "medida", medida.toString(), new PeticionarioREST.RespuestaREST() {
+        new PeticionarioREST().hacerPeticionREST("POST", Constantes.URL + "medicion", medida.toString(), new PeticionarioREST.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
                 Log.d("REST","Medida guardada : "+cuerpo);

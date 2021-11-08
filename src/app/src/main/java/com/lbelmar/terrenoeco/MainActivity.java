@@ -1,4 +1,4 @@
-package com.lbelmar.biometric;
+package com.lbelmar.terrenoeco;
 
 // -------------------------------------------------------
 // Autor: Luis Belloch
@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int CODIGO_PETICION_PERMISOS = 11223344;
 
     public static final String TAG_INTENT_SERVICE = "TAG_INTENT_SERVICE";
+
+    public static TextView textoMedida;
 
     private Intent elIntentDelServicio = null;
     GestionNotificaciones gestorNotidicaciones;
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): parece que YA tengo los permisos necesarios !!!!");
 
         }
+        textoMedida = findViewById(R.id.textoVisualMedida);
         gestorNotidicaciones = new GestionNotificaciones();
         Log.d(ETIQUETA_LOG, " onCreate(): termina ");
 
@@ -145,6 +149,12 @@ public class MainActivity extends AppCompatActivity {
     public static Context getContext() {
         return mContext;
     }
+    public static void actualizarTextoMedida(String texto) {
+        textoMedida.setText(texto);
+    }
+
+
+
 
 } // class
 // --------------------------------------------------------------

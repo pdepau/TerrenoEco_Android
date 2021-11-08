@@ -1,4 +1,4 @@
-package com.lbelmar.biometric;
+package com.lbelmar.terrenoeco;
 // -------------------------------------------------------
 // Autor: Luis Belloch
 // Descripcion: Administra el servicio de escuchar beacons
@@ -48,7 +48,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
     GestionNotificaciones   gestorNotidicaciones;
     int idNotificacion;
     Intent elIntentDelServicio;
-
+    long contador = 1;
     // --------------------------------------------------------------
     // --------------------------------------------------------------
     private BluetoothLeScanner elEscanner;
@@ -99,6 +99,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
         gestorNotidicaciones.quitarNotificacion(idNotificacion);
         detenerBusquedaDispositivosBTLE();
+        MainActivity.actualizarTextoMedida("Servicio parado");
         this.seguir = false;
         this.stopSelf();
 
@@ -106,7 +107,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
     }
 
-    // ---------------------------------------------------------------------------------------------
+    // -----r----------------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------
     public void onDestroy() {
 
@@ -142,8 +143,9 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
         inicializarBlueTooth();
 
         // esto lo ejecuta un WORKER THREAD !
+        buscarEsteDispositivoBTLE(Constantes.NOMBRE_SENSOR);
 
-        long contador = 1;
+
 
         Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: empieza : thread=" + Thread.currentThread().getId());
 
@@ -164,13 +166,15 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
                 // El permiso lo pide MainActivity.java
                 ultimaLocalizacion = manejador.getLastKnownLocation(proveedor);
 
+                if(contador>10) {
+                    gestorNotidicaciones.actualizarNotificacionServicio(idNotificacion, elIntentDelServicio, "Problema con el sensor", "Puede que el sensor se haya desconectado, revise la conexión ");
+                }
                 // --------------------------------------------------------------
                 // Llamadas a la logica
                 // --------------------------------------------------------------
                 Logica.obtenerTodasLasMedidas();
                 // Busca
-                buscarEsteDispositivoBTLE("69:57:5F:4A:94:E3");
-                // buscarTodosLosDispositivosBTLE();
+                 //buscarTodosLosDispositivosBTLE();
 
                 Thread.sleep(tiempoDeEspera);
             }
@@ -303,7 +307,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
             public void onScanResult( int callbackType, ScanResult resultado ) {
                 super.onScanResult(callbackType, resultado);
                 Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): onScanResult() ");
-
+                contador = 0;
                 Date date = new Date();
 
                 mostrarInformacionDispositivoBTLE( resultado );
@@ -324,7 +328,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
                     gestorNotidicaciones.crearNotificacionAlertas(Color.RED, "ZONA ALTAMENTE CONTAMINADA", "Se ha detectado un valor de " + valor+ " en la zona.");
                 }
 
-
+                MainActivity.actualizarTextoMedida("Nueva medida : Fecha " + date.toString());
                 gestorNotidicaciones.actualizarNotificacionServicio(idNotificacion,elIntentDelServicio,"Nueva medida","Fecha " + date.toString() );
 
                 // Objeto medicion constructor
@@ -348,7 +352,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
             }
         };
 
-        List<ScanFilter> sf = Collections.singletonList(new ScanFilter.Builder().setDeviceAddress(dispositivoBuscado).build());
+        List<ScanFilter> sf = Collections.singletonList(new ScanFilter.Builder().setDeviceName(dispositivoBuscado).build());
         ScanSettings settings = new ScanSettings.Builder().setScanMode(ScanSettings.CALLBACK_TYPE_ALL_MATCHES).build();
 
         Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): empezamos a escanear buscando: " + dispositivoBuscado );
@@ -375,18 +379,6 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
     } // ()
 
-    // --------------------------------------------------------------
-    // --------------------------------------------------------------
-    /**
-     * Busca dispositivos disponibles al pulsar un boton
-     *
-     * @param  v   la vista del boton
-     */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void botonBuscarDispositivosBTLEPulsado(View v ) {
-        Log.d(ETIQUETA_LOG, " boton buscar dispositivos BTLE Pulsado" );
-        this.buscarTodosLosDispositivosBTLE();
-    } // ()
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------

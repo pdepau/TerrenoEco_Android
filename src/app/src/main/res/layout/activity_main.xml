@@ -1,25 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/teal_200"
     tools:context=".MainActivity">
+
 
     <Button
         android:id="@+id/intent_service_start_intent_service"
-        android:text="@string/buscar"
-        android:onClick="botonArrancarServicioPulsado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        android:onClick="botonArrancarServicioPulsado"
+        android:text="@string/buscar"
+        app:icon="@android:drawable/ic_media_play"
+        app:iconGravity="top"
+        app:layout_constraintBottom_toTopOf="@+id/intent_service_stop_intent_service"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/intent_service_stop_intent_service"
-        android:onClick="botonDetenerServicioPulsado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/parar_servicio" />
+        android:onClick="botonDetenerServicioPulsado"
+        android:text="@string/parar_servicio"
+        app:icon="@android:drawable/ic_media_pause"
+        app:iconGravity="top"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/intent_service_start_intent_service" />
 
-</android.widget.LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:backgroundTint="@color/white"
+            android:shadowColor="@color/white"
+            android:shadowDx="0"
+            android:shadowRadius="0"
+            android:text="Sensor"
+            android:textAlignment="center"
+            android:textColor="@android:color/darker_gray"
+            app:icon="@android:drawable/checkbox_off_background"
+            app:iconGravity="top"
+            app:iconTint="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button6"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:strokeColor="@color/white" />
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:shadowColor="@color/white"
+            android:shadowDx="0"
+            android:shadowRadius="0"
+            android:text="Mapa"
+            android:textColor="@android:color/darker_gray"
+            app:icon="@android:drawable/ic_menu_mapmode"
+            app:iconGravity="top"
+            app:iconTint="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button8"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button7"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:strokeColor="@color/white" />
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:shadowColor="@color/white"
+            android:shadowDx="0"
+            android:shadowRadius="0"
+            android:text="Usuario"
+            android:textColor="@android:color/darker_gray"
+            app:icon="@android:drawable/ic_menu_myplaces"
+            app:iconGravity="top"
+            app:iconTint="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button6"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:strokeColor="@color/white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textoVisualMedida"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Pibe, arrancá el servicio"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/intent_service_start_intent_service" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
