@@ -1,4 +1,4 @@
-package com.lbelmar.biometric;
+package com.lbelmar.terrenoeco;
 // -------------------------------------------------------
 // Autor: Adrian Maldonado
 // Descripcion: AGestiona las notificaciones de la app
