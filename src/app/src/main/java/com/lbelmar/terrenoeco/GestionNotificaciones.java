@@ -57,7 +57,7 @@ public class GestionNotificaciones {
      * @param titulo
      * @param descripcion
      */
-    public void crearNotificacionAlertas(int color, String titulo, String descripcion) {
+    public int crearNotificacionAlertas(int color, String titulo, String descripcion) {
 
         Intent intent = new Intent(MainActivity.getContext(), MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.getContext(), 0, intent, 0);
@@ -77,6 +77,19 @@ public class GestionNotificaciones {
 
         int notificationId = Integer.parseInt((date.getTime() / 1000) + "");
         notificationManager.notify(notificationId, builder.build());
+        return notificationId;
+    }
+
+
+    public void actualizarNotificacionAlertas(int idNotificacion, String titulo, String descripcion){
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.getContext(), CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle(titulo)
+                .setContentText(descripcion)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        notificationManager.notify(idNotificacion,builder.build());
     }
 
     /**
@@ -113,6 +126,7 @@ public class GestionNotificaciones {
         return notificationId;
     }
 
+
     public void quitarNotificacion(int id){
 
         notificationManager.cancel(id);
@@ -139,6 +153,7 @@ public class GestionNotificaciones {
                 .setContentTitle(titulo)
                 .setContentText(descripcion)
                 .setContentIntent(pendingIntent)
+                .setSilent(true)
                 .setOngoing(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 

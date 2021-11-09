@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG_INTENT_SERVICE = "TAG_INTENT_SERVICE";
 
     public static TextView textoMedida;
+    public static TextView textoDistancia;
 
     private Intent elIntentDelServicio = null;
     GestionNotificaciones gestorNotidicaciones;
@@ -69,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
         textoMedida = findViewById(R.id.textoVisualMedida);
+        textoDistancia = findViewById(R.id.textoDistancia);
+
         gestorNotidicaciones = new GestionNotificaciones();
         Log.d(ETIQUETA_LOG, " onCreate(): termina ");
 
@@ -123,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.elIntentDelServicio = new Intent(this, ServicioEscucharBeacons.class);
 
-        this.elIntentDelServicio.putExtra("tiempoDeEspera", (long) 50000);
+        this.elIntentDelServicio.putExtra("tiempoDeEspera", (long) 5000);
         startService(this.elIntentDelServicio);
 
     } // ()
@@ -151,6 +154,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public static void actualizarTextoMedida(String texto) {
         textoMedida.setText(texto);
+    }
+    public static void actualizarTextoDistancia(String texto) {
+        textoDistancia.setText(texto);
     }
 
 

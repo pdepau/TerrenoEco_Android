@@ -4,6 +4,7 @@ package com.lbelmar.terrenoeco;
 // Descripcion: Administra el servicio de escuchar beacons
 // Fecha: 15/10/2021
 // -------------------------------------------------------
+
 import android.annotation.SuppressLint;
 import android.app.IntentService;
 import android.bluetooth.BluetoothAdapter;
@@ -45,8 +46,10 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
     private Location ultimaLocalizacion;
 
-    GestionNotificaciones   gestorNotidicaciones;
-    int idNotificacion;
+    GestionNotificaciones gestorNotidicaciones;
+    DistanciaSensor distanciaSensor = new DistanciaSensor();
+    int idNotificacionServicio;
+    int idNotificacionAlertaMedida = 0;
     Intent elIntentDelServicio;
     long contador = 1;
     // --------------------------------------------------------------
@@ -54,6 +57,9 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
     private BluetoothLeScanner elEscanner;
 
     private ScanCallback callbackDelEscaneo = null;
+
+    private float mediaDistanciaSensorAlMovil = -10;
+
 
     // ---------------------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------
@@ -97,7 +103,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
             return;
         }
 
-        gestorNotidicaciones.quitarNotificacion(idNotificacion);
+        gestorNotidicaciones.quitarNotificacion(idNotificacionServicio);
         detenerBusquedaDispositivosBTLE();
         MainActivity.actualizarTextoMedida("Servicio parado");
         this.seguir = false;
@@ -137,7 +143,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
         this.seguir = true;
 
         elIntentDelServicio = intent;
-        idNotificacion = gestorNotidicaciones.crearNotificacionServicio(elIntentDelServicio, "Servicio", "TExto y tal");
+        idNotificacionServicio = gestorNotidicaciones.crearNotificacionServicio(elIntentDelServicio, "Servicio", "TExto y tal");
 
 
         inicializarBlueTooth();
@@ -146,13 +152,12 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
         buscarEsteDispositivoBTLE(Constantes.NOMBRE_SENSOR);
 
 
-
         Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: empieza : thread=" + Thread.currentThread().getId());
 
         try {
 
             while (this.seguir) {
-                Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: tras la espera:  " + contador);
+                Log.d("contador", " ServicioEscucharBeacons.onHandleIntent: tras la espera:  " + contador);
                 contador++;
 
                 manejador = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -166,20 +171,20 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
                 // El permiso lo pide MainActivity.java
                 ultimaLocalizacion = manejador.getLastKnownLocation(proveedor);
 
-                if(contador>10) {
-                    gestorNotidicaciones.actualizarNotificacionServicio(idNotificacion, elIntentDelServicio, "Problema con el sensor", "Puede que el sensor se haya desconectado, revise la conexión ");
+                if (contador > 1) {
+                    gestorNotidicaciones.actualizarNotificacionServicio(idNotificacionServicio, elIntentDelServicio, "Problema con el sensor", "Puede que el sensor se haya desconectado, revise la conexión ");
                 }
                 // --------------------------------------------------------------
                 // Llamadas a la logica
                 // --------------------------------------------------------------
                 Logica.obtenerTodasLasMedidas();
                 // Busca
-                 //buscarTodosLosDispositivosBTLE();
+                //buscarTodosLosDispositivosBTLE();
 
                 Thread.sleep(tiempoDeEspera);
             }
 
-            Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent : tarea terminada ( tras while(true) )" );
+            Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent : tarea terminada ( tras while(true) )");
 
         } catch (InterruptedException e) {
             // Restore interrupt status.
@@ -193,6 +198,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
     }
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+
     /**
      * Busca los dispositivos disponibles y despues recibe los datos de los sensores
      */
@@ -204,11 +210,11 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
         this.callbackDelEscaneo = new ScanCallback() {
             @Override
-            public void onScanResult( int callbackType, ScanResult resultado ) {
+            public void onScanResult(int callbackType, ScanResult resultado) {
                 super.onScanResult(callbackType, resultado);
                 Log.d(ETIQUETA_LOG, " buscarTodosLosDispositivosBTL(): onScanResult() ");
 
-                mostrarInformacionDispositivoBTLE( resultado );
+                mostrarInformacionDispositivoBTLE(resultado);
             }
 
             @Override
@@ -228,19 +234,20 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
         Log.d(ETIQUETA_LOG, " buscarTodosLosDispositivosBTL(): empezamos a escanear ");
 
-        this.elEscanner.startScan( this.callbackDelEscaneo);
+        this.elEscanner.startScan(this.callbackDelEscaneo);
 
     } // ()
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+
     /**
      * Muestra la informacion de un dispositivo
      *
-     * @param  dispositivo  el dispositivo a analizar
+     * @param dispositivo el dispositivo a analizar
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void mostrarInformacionDispositivoBTLE(ScanResult dispositivo ) {
+    private void mostrarInformacionDispositivoBTLE(ScanResult dispositivo) {
 
         BluetoothDevice bluetoothDevice = dispositivo.getDevice();
         byte[] bytes = dispositivo.getScanRecord().getBytes();
@@ -260,7 +267,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
         }*/
 
         Log.d(ETIQUETA_LOG, " dirección = " + bluetoothDevice.getAddress());
-        Log.d(ETIQUETA_LOG, " rssi = " + rssi );
+        Log.d(ETIQUETA_LOG, " rssi = " + rssi);
 
         Log.d(ETIQUETA_LOG, " bytes = " + new String(bytes));
         Log.d(ETIQUETA_LOG, " bytes (" + bytes.length + ") = " + Utilidades.bytesToHexString(bytes));
@@ -292,10 +299,10 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
     /**
      * Busca un dispositivo concreto
      *
-     * @param  dispositivoBuscado   direccion MAC del dispositivo
+     * @param dispositivoBuscado direccion MAC del dispositivo
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void buscarEsteDispositivoBTLE(final String dispositivoBuscado ) {
+    private void buscarEsteDispositivoBTLE(final String dispositivoBuscado) {
         Log.d(ETIQUETA_LOG, " buscarEsteDispositivoBTLE(): empieza ");
 
         Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): instalamos scan callback ");
@@ -304,13 +311,13 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
         this.callbackDelEscaneo = new ScanCallback() {
             @Override
-            public void onScanResult( int callbackType, ScanResult resultado ) {
+            public void onScanResult(int callbackType, ScanResult resultado) {
                 super.onScanResult(callbackType, resultado);
                 Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): onScanResult() ");
                 contador = 0;
                 Date date = new Date();
 
-                mostrarInformacionDispositivoBTLE( resultado );
+                mostrarInformacionDispositivoBTLE(resultado);
 
                 byte[] bytes = resultado.getScanRecord().getBytes();
                 TramaIBeacon tib = new TramaIBeacon(bytes);
@@ -321,18 +328,27 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
                 // Esto es el valor de la medida
                 int valor = Utilidades.bytesToInt(tib.getMinor());
 
+                mediaDistanciaSensorAlMovil += (resultado.getRssi() - mediaDistanciaSensorAlMovil) / 4;
+                String distancia = distanciaSensor.distanciaRelativa(mediaDistanciaSensorAlMovil);
+                MainActivity.actualizarTextoDistancia("Distancia : " + distancia);
+
+
+                Log.d("maldoTest", mediaDistanciaSensorAlMovil + "");
 
                 //todo:poner los valores según la base de datos
-                Integer valorUmbralAlto = 10;
+                Integer valorUmbralAlto = 100000;
                 if (valor > valorUmbralAlto) {
-                    gestorNotidicaciones.crearNotificacionAlertas(Color.RED, "ZONA ALTAMENTE CONTAMINADA", "Se ha detectado un valor de " + valor+ " en la zona.");
+                    if (idNotificacionAlertaMedida == 0) {
+                        idNotificacionAlertaMedida = gestorNotidicaciones.crearNotificacionAlertas(Color.RED, "ZONA ALTAMENTE CONTAMINADA", "Se ha detectado un valor de " + valor + " en la zona.");
+                    }
+                    gestorNotidicaciones.actualizarNotificacionAlertas(idNotificacionAlertaMedida,"ZONA ALTAMENTE CONTAMINADA","Se ha detectado un valor de " + valor + " en la zona.");
                 }
 
                 MainActivity.actualizarTextoMedida("Nueva medida : Fecha " + date.toString());
-                gestorNotidicaciones.actualizarNotificacionServicio(idNotificacion,elIntentDelServicio,"Nueva medida","Fecha " + date.toString() );
+                gestorNotidicaciones.actualizarNotificacionServicio(idNotificacionServicio, elIntentDelServicio, "Nueva medida", "Fecha " + date.toString());
 
                 // Objeto medicion constructor
-                Medida medida = new Medida(valor, 4.23626,4.6252727);
+                Medida medida = new Medida(valor, 4.23626, 4.6252727);
                 Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): medida" + medida.toString());
 
                 // Envia el objeto por la logica
@@ -355,26 +371,27 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
         List<ScanFilter> sf = Collections.singletonList(new ScanFilter.Builder().setDeviceName(dispositivoBuscado).build());
         ScanSettings settings = new ScanSettings.Builder().setScanMode(ScanSettings.CALLBACK_TYPE_ALL_MATCHES).build();
 
-        Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): empezamos a escanear buscando: " + dispositivoBuscado );
+        Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): empezamos a escanear buscando: " + dispositivoBuscado);
         //Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): empezamos a escanear buscando: " + dispositivoBuscado
         //      + " -> " + Utilidades.stringToUUID( dispositivoBuscado ) );
 
-        this.elEscanner.startScan(sf, settings, this.callbackDelEscaneo );
+        this.elEscanner.startScan(sf, settings, this.callbackDelEscaneo);
     } // ()
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+
     /**
      * Detiene la busqueda de un dispositivo
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void detenerBusquedaDispositivosBTLE() {
 
-        if ( this.callbackDelEscaneo == null ) {
+        if (this.callbackDelEscaneo == null) {
             return;
         }
 
-        this.elEscanner.stopScan( this.callbackDelEscaneo );
+        this.elEscanner.stopScan(this.callbackDelEscaneo);
         this.callbackDelEscaneo = null;
 
     } // ()
@@ -382,35 +399,38 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+
     /**
      * Busca un dispositivo concreto
      *
-     * @param  v   la vista del boton
+     * @param v la vista del boton
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void botonBuscarNuestroDispositivoBTLEPulsado(View v ) {
-        Log.d(ETIQUETA_LOG, " boton nuestro dispositivo BTLE Pulsado" );
+    public void botonBuscarNuestroDispositivoBTLEPulsado(View v) {
+        Log.d(ETIQUETA_LOG, " boton nuestro dispositivo BTLE Pulsado");
         //this.buscarEsteDispositivoBTLE( Utilidades.stringToUUID( "EPSG-GTI-PROY-3A" ) );
 
-        this.buscarEsteDispositivoBTLE( "49:EA:56:F7:21:06" );
+        this.buscarEsteDispositivoBTLE("49:EA:56:F7:21:06");
 
     } // ()
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+
     /**
      * Cancela la busqueda de un dispositivo
      *
-     * @param  v   la vista del boton
+     * @param v la vista del boton
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void botonDetenerBusquedaDispositivosBTLEPulsado(View v ) {
-        Log.d(ETIQUETA_LOG, " boton detener busqueda dispositivos BTLE Pulsado" );
+    public void botonDetenerBusquedaDispositivosBTLEPulsado(View v) {
+        Log.d(ETIQUETA_LOG, " boton detener busqueda dispositivos BTLE Pulsado");
         this.detenerBusquedaDispositivosBTLE();
     } // ()
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+
     /**
      * Inicia el servicio Bluetooth
      */
@@ -424,15 +444,15 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
         bta.enable();
 
-        Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): habilitado =  " + bta.isEnabled() );
+        Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): habilitado =  " + bta.isEnabled());
 
-        Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): estado =  " + bta.getState() );
+        Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): estado =  " + bta.getState());
 
         Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): obtenemos escaner btle ");
 
         this.elEscanner = bta.getBluetoothLeScanner();
 
-        if ( this.elEscanner == null ) {
+        if (this.elEscanner == null) {
             Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): Socorro: NO hemos obtenido escaner btle  !!!!");
 
         }
