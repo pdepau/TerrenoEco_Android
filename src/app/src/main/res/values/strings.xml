@@ -2,4 +2,8 @@
     <string name="app_name">Terreno Eco</string>
     <string name="buscar">Iniciar Servicio</string>
     <string name="parar_servicio">Parar servicio</string>
+    <string name="textoSensorMuyLejos">Muy lejos</string>
+    <string name="textoSensorLejos">Lejos</string>
+    <string name="textoSensorCerca">Cerca</string>
+    <string name="textoSensorMuyCerca">Muy cerca</string>
 </resources>
