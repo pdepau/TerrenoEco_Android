@@ -21,6 +21,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
+import android.os.Debug;
 import android.util.Log;
 import android.view.View;
 
@@ -34,7 +35,7 @@ import java.util.List;
 
 // -------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------
-public class ServicioEscucharBeacons extends IntentService implements LocationListener {
+public class ServicioEscucharBeacons extends IntentService implements LocationListener{
 
     // ---------------------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------
@@ -42,25 +43,30 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
     private boolean seguir = true;
 
-    private LocationManager manejador;
-
-    private Location ultimaLocalizacion;
-
+    //Gestion de la notificacion del servicio
     GestionNotificaciones gestorNotidicaciones;
     DistanciaSensor distanciaSensor = new DistanciaSensor();
     int idNotificacionServicio;
     int idNotificacionAlertaMedida = 0;
     Intent elIntentDelServicio;
+
+    //Deteccion de problemas en el beacon
     long contador = 1;
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+    //Escaner bluetooth
     private BluetoothLeScanner elEscanner;
-
     private ScanCallback callbackDelEscaneo = null;
 
+    //Distancia dispositivo-movil
     private float mediaDistanciaSensorAlMovil = -10;
 
+    //Media diaria
+    private MediaDiaria mediaDiaria;
 
+    //Localizacion
+    LocationManager manejador;
+    static Location ultimaLocalizacion;
     // ---------------------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------
     public ServicioEscucharBeacons() {
@@ -69,24 +75,6 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
         Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.constructor: termina");
 
     }
-
-    // ---------------------------------------------------------------------------------------------
-    // ---------------------------------------------------------------------------------------------
-    /*
-    @Override
-    public int onStartCommand( Intent elIntent, int losFlags, int startId) {
-
-        // creo que este método no es necesario usarlo. Lo ejecuta el thread principal !!!
-        super.onStartCommand( elIntent, losFlags, startId );
-
-        this.tiempoDeEspera = elIntent.getLongExtra("tiempoDeEspera", 50000);
-
-        Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onStartCommand : empieza: thread=" + Thread.currentThread().getId() );
-
-        return Service.START_CONTINUATION_MASK | Service.START_STICKY;
-    } // ()
-
-     */
 
     // ---------------------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------
@@ -137,6 +125,8 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
     @Override
     protected void onHandleIntent(Intent intent) {
 
+        MainActivity.actualizarTextoMedida("Servicio arrancado");
+
         gestorNotidicaciones = new GestionNotificaciones();
         /* default */
         long tiempoDeEspera = intent.getLongExtra("tiempoDeEspera", /* default */ 50000);
@@ -145,7 +135,8 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
         elIntentDelServicio = intent;
         idNotificacionServicio = gestorNotidicaciones.crearNotificacionServicio(elIntentDelServicio, "Servicio", "TExto y tal");
 
-
+        mediaDiaria = new MediaDiaria();
+        empezarServicioLocalizacion();
         inicializarBlueTooth();
 
         // esto lo ejecuta un WORKER THREAD !
@@ -159,17 +150,6 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
             while (this.seguir) {
                 Log.d("contador", " ServicioEscucharBeacons.onHandleIntent: tras la espera:  " + contador);
                 contador++;
-
-                manejador = (LocationManager) getSystemService(LOCATION_SERVICE);
-                Criteria criterio = new Criteria();
-                criterio.setCostAllowed(false);
-                criterio.setAltitudeRequired(false);
-                criterio.setAccuracy(Criteria.ACCURACY_FINE);
-                String proveedor = manejador.getBestProvider(criterio, true);
-                Log.d("adv", "Mejor proveedor: " + proveedor + "\n");
-                Log.d("adv", "Comenzamos con la última localización conocida:");
-                // El permiso lo pide MainActivity.java
-                ultimaLocalizacion = manejador.getLastKnownLocation(proveedor);
 
                 if (contador > 1) {
                     gestorNotidicaciones.actualizarNotificacionServicio(idNotificacionServicio, elIntentDelServicio, "Problema con el sensor", "Puede que el sensor se haya desconectado, revise la conexión ");
@@ -258,17 +238,8 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
         Log.d(ETIQUETA_LOG, " ****************************************************");
         Log.d(ETIQUETA_LOG, " nombre = " + bluetoothDevice.getName());
         Log.d(ETIQUETA_LOG, " toString = " + bluetoothDevice.toString());
-
-        /*
-        ParcelUuid[] puuids = bluetoothDevice.getUuids();
-        if ( puuids.length >= 1 ) {
-            //Log.d(ETIQUETA_LOG, " uuid = " + puuids[0].getUuid());
-           // Log.d(ETIQUETA_LOG, " uuid = " + puuids[0].toString());
-        }*/
-
         Log.d(ETIQUETA_LOG, " dirección = " + bluetoothDevice.getAddress());
         Log.d(ETIQUETA_LOG, " rssi = " + rssi);
-
         Log.d(ETIQUETA_LOG, " bytes = " + new String(bytes));
         Log.d(ETIQUETA_LOG, " bytes (" + bytes.length + ") = " + Utilidades.bytesToHexString(bytes));
 
@@ -321,8 +292,6 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
                 byte[] bytes = resultado.getScanRecord().getBytes();
                 TramaIBeacon tib = new TramaIBeacon(bytes);
-                // El UUID del sensor
-                String sensor_id = Utilidades.bytesToString(tib.getUUID());
 
                 Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): dispositivo escaneado UUID:  " + Arrays.toString(tib.getUUID()));
                 // Esto es el valor de la medida
@@ -332,8 +301,6 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
                 String distancia = distanciaSensor.distanciaRelativa(mediaDistanciaSensorAlMovil);
                 MainActivity.actualizarTextoDistancia("Distancia : " + distancia);
 
-
-                Log.d("maldoTest", mediaDistanciaSensorAlMovil + "");
 
                 //todo:poner los valores según la base de datos
                 Integer valorUmbralAlto = 100000;
@@ -348,11 +315,15 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
                 gestorNotidicaciones.actualizarNotificacionServicio(idNotificacionServicio, elIntentDelServicio, "Nueva medida", "Fecha " + date.toString());
 
                 // Objeto medicion constructor
-                Medida medida = new Medida(valor, 4.23626, 4.6252727);
+                Medida medida = new Medida(valor, getLocation().getLatitude(), getLocation().getLongitude());
                 Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): medida" + medida.toString());
 
                 // Envia el objeto por la logica
                 Logica.guardarMedida(medida);
+
+                // Actualiza la media
+                mediaDiaria.actualizarMedia(medida.medicion_valor);
+
             }
 
             @Override
@@ -401,37 +372,6 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
     // --------------------------------------------------------------
 
     /**
-     * Busca un dispositivo concreto
-     *
-     * @param v la vista del boton
-     */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void botonBuscarNuestroDispositivoBTLEPulsado(View v) {
-        Log.d(ETIQUETA_LOG, " boton nuestro dispositivo BTLE Pulsado");
-        //this.buscarEsteDispositivoBTLE( Utilidades.stringToUUID( "EPSG-GTI-PROY-3A" ) );
-
-        this.buscarEsteDispositivoBTLE("49:EA:56:F7:21:06");
-
-    } // ()
-
-    // --------------------------------------------------------------
-    // --------------------------------------------------------------
-
-    /**
-     * Cancela la busqueda de un dispositivo
-     *
-     * @param v la vista del boton
-     */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void botonDetenerBusquedaDispositivosBTLEPulsado(View v) {
-        Log.d(ETIQUETA_LOG, " boton detener busqueda dispositivos BTLE Pulsado");
-        this.detenerBusquedaDispositivosBTLE();
-    } // ()
-
-    // --------------------------------------------------------------
-    // --------------------------------------------------------------
-
-    /**
      * Inicia el servicio Bluetooth
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -461,10 +401,27 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
     } // ()
 
+
+    @SuppressLint("MissingPermission")
+    public void empezarServicioLocalizacion(){
+        manejador = (LocationManager) MainActivity.getContext().getSystemService(LOCATION_SERVICE);
+        Criteria criterio = new Criteria();
+        criterio.setCostAllowed(false);
+        criterio.setAltitudeRequired(false);
+        criterio.setAccuracy(Criteria.ACCURACY_FINE);
+        String proveedor = manejador.getBestProvider(criterio, true);
+        ultimaLocalizacion = manejador.getLastKnownLocation(proveedor);
+        manejador.requestLocationUpdates(proveedor,500,0,this::onLocationChanged);
+    }
+
+    public static Location getLocation(){return ultimaLocalizacion;}
+
     @Override
     public void onLocationChanged(@NonNull Location location) {
-
+        ultimaLocalizacion = location;
+        Log.d("Localizacion",location.toString());
     }
+
 } // class
 // -------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------
