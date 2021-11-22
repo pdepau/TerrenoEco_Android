@@ -21,9 +21,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
-import android.os.Debug;
 import android.util.Log;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -35,7 +33,7 @@ import java.util.List;
 
 // -------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------
-public class ServicioEscucharBeacons extends IntentService implements LocationListener{
+public class ServicioEscucharBeacons extends IntentService implements LocationListener {
 
     // ---------------------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------
@@ -67,6 +65,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
     //Localizacion
     LocationManager manejador;
     static Location ultimaLocalizacion;
+
     // ---------------------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------
     public ServicioEscucharBeacons() {
@@ -85,7 +84,6 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
     public void parar() {
 
         Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.parar() ");
-
 
         if (this.seguir == false) {
             return;
@@ -106,7 +104,6 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
     public void onDestroy() {
 
         Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onDestroy() ");
-
 
         this.parar(); // posiblemente no haga falta, si stopService() ya se carga el servicio y su worker thread
     }
@@ -141,7 +138,6 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
         // esto lo ejecuta un WORKER THREAD !
         buscarEsteDispositivoBTLE(Constantes.NOMBRE_SENSOR);
-
 
         Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: empieza : thread=" + Thread.currentThread().getId());
 
@@ -308,7 +304,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
                     if (idNotificacionAlertaMedida == 0) {
                         idNotificacionAlertaMedida = gestorNotidicaciones.crearNotificacionAlertas(Color.RED, "ZONA ALTAMENTE CONTAMINADA", "Se ha detectado un valor de " + valor + " en la zona.");
                     }
-                    gestorNotidicaciones.actualizarNotificacionAlertas(idNotificacionAlertaMedida,"ZONA ALTAMENTE CONTAMINADA","Se ha detectado un valor de " + valor + " en la zona.");
+                    gestorNotidicaciones.actualizarNotificacionAlertas(idNotificacionAlertaMedida, "ZONA ALTAMENTE CONTAMINADA", "Se ha detectado un valor de " + valor + " en la zona.");
                 }
 
                 MainActivity.actualizarTextoMedida("Nueva medida : Fecha " + date.toString());
@@ -403,7 +399,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
 
     @SuppressLint("MissingPermission")
-    public void empezarServicioLocalizacion(){
+    public void empezarServicioLocalizacion() {
         manejador = (LocationManager) MainActivity.getContext().getSystemService(LOCATION_SERVICE);
         Criteria criterio = new Criteria();
         criterio.setCostAllowed(false);
@@ -411,15 +407,17 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
         criterio.setAccuracy(Criteria.ACCURACY_FINE);
         String proveedor = manejador.getBestProvider(criterio, true);
         ultimaLocalizacion = manejador.getLastKnownLocation(proveedor);
-        manejador.requestLocationUpdates(proveedor,500,0,this::onLocationChanged);
+        manejador.requestLocationUpdates(proveedor, 500, 0, this::onLocationChanged);
     }
 
-    public static Location getLocation(){return ultimaLocalizacion;}
+    public static Location getLocation() {
+        return ultimaLocalizacion;
+    }
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
         ultimaLocalizacion = location;
-        Log.d("Localizacion",location.toString());
+        Log.d("Localizacion", location.toString());
     }
 
 } // class

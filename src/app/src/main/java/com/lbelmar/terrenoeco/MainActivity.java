@@ -7,22 +7,16 @@ package com.lbelmar.terrenoeco;
 // -------------------------------------------------------
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -90,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         mediaDiaria = new MediaDiaria();
         mediaDiaria.actualizarMedia(1);
-        Log.d("aa",mediaDiaria.getMedia()+"");
+        Log.d("aa", mediaDiaria.getMedia() + "");
 
         Log.d(ETIQUETA_LOG, " onCreate(): termina ");
 
@@ -169,20 +163,21 @@ public class MainActivity extends AppCompatActivity {
     } // ()
 
 
-
     public static Context getContext() {
         return mContext;
     }
+
     public static Activity getActivity() {
         return mActivity;
     }
+
     public static void actualizarTextoMedida(String texto) {
         textoMedida.setText(texto);
     }
+
     public static void actualizarTextoDistancia(String texto) {
         textoDistancia.setText(texto);
     }
-
 
 
 } // class
