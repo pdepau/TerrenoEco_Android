@@ -6,4 +6,7 @@
     <string name="textoSensorLejos">Lejos</string>
     <string name="textoSensorCerca">Cerca</string>
     <string name="textoSensorMuyCerca">Muy cerca</string>
+    <string name="nombre_clave_media">mediaDiaria</string>
+    <string name="nombre_clave_cantidad_media">cuantasMediaDiaria</string>
+    <string name="nombre_clave_dia_de_la_media">diaDeLaMedia</string>
 </resources>

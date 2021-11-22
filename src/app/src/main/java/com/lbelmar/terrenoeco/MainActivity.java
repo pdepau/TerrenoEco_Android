@@ -7,6 +7,7 @@ package com.lbelmar.terrenoeco;
 // -------------------------------------------------------
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -40,7 +41,13 @@ public class MainActivity extends AppCompatActivity {
 
     private Intent elIntentDelServicio = null;
     GestionNotificaciones gestorNotidicaciones;
+
+
     static Context mContext;
+    static Activity mActivity;
+
+    MediaDiaria mediaDiaria;
+
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
@@ -50,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = this;
+        mActivity = this;
         Log.d(ETIQUETA_LOG, " onCreate(): empieza ");
 
         if (
@@ -73,6 +81,11 @@ public class MainActivity extends AppCompatActivity {
         textoDistancia = findViewById(R.id.textoDistancia);
 
         gestorNotidicaciones = new GestionNotificaciones();
+
+        mediaDiaria = new MediaDiaria();
+        mediaDiaria.actualizarMedia(1);
+        Log.d("aa", mediaDiaria.getMedia() + "");
+
         Log.d(ETIQUETA_LOG, " onCreate(): termina ");
 
 
@@ -149,17 +162,22 @@ public class MainActivity extends AppCompatActivity {
 
     } // ()
 
+
     public static Context getContext() {
         return mContext;
     }
+
+    public static Activity getActivity() {
+        return mActivity;
+    }
+
     public static void actualizarTextoMedida(String texto) {
         textoMedida.setText(texto);
     }
+
     public static void actualizarTextoDistancia(String texto) {
         textoDistancia.setText(texto);
     }
-
-
 
 
 } // class
