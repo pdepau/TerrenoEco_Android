@@ -9,4 +9,8 @@
     <string name="nombre_clave_media">mediaDiaria</string>
     <string name="nombre_clave_cantidad_media">cuantasMediaDiaria</string>
     <string name="nombre_clave_dia_de_la_media">diaDeLaMedia</string>
+    <string name="title_home">SENSOR</string>
+    <string name="title_dashboard">MAPA</string>
+    <string name="title_notifications">USUARIO</string>
+    <string name="access_token">pk.eyJ1IjoicGRlcGF1IiwiYSI6ImNrYzZnYmQxeTByOHEyem8wdzBxZTZvZ2kifQ.2aSg9PWFRF351XqRK1l0KQ</string>
 </resources>

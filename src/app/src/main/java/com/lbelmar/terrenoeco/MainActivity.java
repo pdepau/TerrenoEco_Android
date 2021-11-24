@@ -22,6 +22,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.lbelmar.terrenoeco.databinding.ActivityMainBinding;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
 
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
@@ -49,13 +56,32 @@ public class MainActivity extends AppCompatActivity {
     MediaDiaria mediaDiaria;
 
 
+
+    private ActivityMainBinding binding;
     // --------------------------------------------------------------
     // --------------------------------------------------------------
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        textoMedida=findViewById(R.id.textoVisualMedida2);
+        textoDistancia=findViewById(R.id.textoDistancia2);
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(binding.navView, navController);
+
+
         mContext = this;
         mActivity = this;
         Log.d(ETIQUETA_LOG, " onCreate(): empieza ");
@@ -77,8 +103,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): parece que YA tengo los permisos necesarios !!!!");
 
         }
-        textoMedida = findViewById(R.id.textoVisualMedida);
-        textoDistancia = findViewById(R.id.textoDistancia);
+
 
         gestorNotidicaciones = new GestionNotificaciones();
 
@@ -87,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d("aa", mediaDiaria.getMedia() + "");
 
         Log.d(ETIQUETA_LOG, " onCreate(): termina ");
+
+
 
 
     } // onCreate()
