@@ -1,5 +1,9 @@
 package com.lbelmar.terrenoeco;
-
+// -------------------------------------------------------
+// Autor: Adrian Maldonado
+// Descripcion: Gestiona las notificaciones de la app
+// Fecha: 18/10/2021
+// -------------------------------------------------------
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;

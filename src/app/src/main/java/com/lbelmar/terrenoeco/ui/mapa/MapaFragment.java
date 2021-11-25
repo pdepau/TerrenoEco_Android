@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,8 +25,7 @@ public class MapaFragment extends Fragment {
 
     private MapaViewModel mapaViewModel;
     private FragmentMapaBinding binding;
-    private MapView mapView;
-
+    WebView webView;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         mapaViewModel =
@@ -32,9 +33,21 @@ public class MapaFragment extends Fragment {
 
         binding = FragmentMapaBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        Mapbox.getInstance(getContext(),getString(R.string.access_token));
-        mapView = (MapView)  root.findViewById(R.id.mapa);
-        mapView.onCreate(savedInstanceState);
+        webView = (WebView) root.findViewById(R.id.web);
+        webView.setWebViewClient(new WebViewClient()
+        {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url)
+            {
+                //view.loadUrl(url);
+                System.out.println("hello");
+                return false;
+            }
+        });
+        webView.getSettings().setJavaScriptEnabled(true);
+        WebView.setWebContentsDebuggingEnabled(true);
+        webView.loadUrl("http://192.168.1.134/mapa-movil.php");
+
         return root;
     }
 
@@ -44,45 +57,13 @@ public class MapaFragment extends Fragment {
         binding = null;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        mapView.onStart();
-    }
 
     @Override
     public void onResume() {
         super.onResume();
-        mapView.onResume();
+        webView.loadUrl("http://192.168.1.134/mapa-movil.php");
+
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        mapView.onPause();
-    }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        mapView.onStop();
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mapView.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mapView.onLowMemory();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mapView.onDestroy();
-    }
 }

@@ -15,18 +15,30 @@ import androidx.core.app.NotificationManagerCompat;
 
 import java.util.Date;
 
+
 public class GestionNotificaciones {
 
     private static final String CHANNEL_ID = "123123123";
 
     NotificationManagerCompat notificationManager;
 
+    /**
+     *
+     * Constructor
+     *
+     */
     public GestionNotificaciones() {
 
         notificationManager = NotificationManagerCompat.from(MainActivity.getContext());
         createNotificationChannel();
     }
 
+
+    /**
+     *
+     * Crea una notificación
+     *
+     */
     public void createNotificationChannel() {
 
 
@@ -126,7 +138,11 @@ public class GestionNotificaciones {
         return notificationId;
     }
 
-
+    /**
+     *
+     *
+     * @param id
+     */
     public void quitarNotificacion(int id){
 
         notificationManager.cancel(id);
@@ -138,7 +154,7 @@ public class GestionNotificaciones {
      * <=
      * actualizarNotificacoinServicio()
      *
-     * Actualiza los datos de una notificacion en concreto
+     * Actualiza los datos de una notificacion no dismiseable
      *
      * @param idNotificacion
      * @param intent

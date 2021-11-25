@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -112,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("aa", mediaDiaria.getMedia() + "");
 
         Log.d(ETIQUETA_LOG, " onCreate(): termina ");
+
 
 
 
