@@ -13,4 +13,9 @@
     <string name="title_dashboard">MAPA</string>
     <string name="title_notifications">USUARIO</string>
     <string name="access_token">pk.eyJ1IjoicGRlcGF1IiwiYSI6ImNrYzZnYmQxeTByOHEyem8wdzBxZTZvZ2kifQ.2aSg9PWFRF351XqRK1l0KQ</string>
+    <string name="nombre_clave_maximo_diario">maximoDiario</string>
+    <string name="nombre_clave_minimo_diario">minimoDiario</string>
+    <string name="nombre_clave_hora_inicio">horaInicioJornada</string>
+    <string name="nombre_clave_hora_final">horaFinalJornada</string>
+    <string name="nombre_clave_historico">historico</string>
 </resources>

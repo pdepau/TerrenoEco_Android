@@ -7,6 +7,8 @@ package com.lbelmar.terrenoeco;
 
 import android.util.Log;
 
+import com.lbelmar.terrenoeco.ui.sensor.SensorFragment;
+
 public class Logica {
 
     /**
@@ -46,8 +48,37 @@ public class Logica {
         new PeticionarioREST().hacerPeticionREST("POST", Constantes.URL + "medicion", medida.toString(), new PeticionarioREST.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
-                Log.d("REST","Medida guardada : "+cuerpo);
+                Log.d("REST", "Medida guardada : " + cuerpo);
             }
         });
     }
+
+    /**
+     * id:Z =>
+     * obtenerTipo()
+     * Tipo:Tipo <=
+     *
+     * @param {number}   id del tipo a tomar de la base de datos
+     * @param {callback} cb donde se recibe la respuesta
+     */
+
+
+    public static void obtenerTipo(int id) { // Debe ser static para poder ser llamado desde el servicio
+
+
+        final PeticionarioREST.RespuestaREST[] a = {new PeticionarioREST.RespuestaREST() {
+            @Override
+            public void callback(int codigo, String cuerpo) {
+                //Log.d("ADRA", cuerpo);
+                SensorFragment.aaa(codigo,cuerpo);
+            }
+        }};
+
+        new PeticionarioREST().hacerPeticionREST("GET", Constantes.URL + "tipo/" + id, null, a[0]);
+
+    }
+
+
+
+
 }

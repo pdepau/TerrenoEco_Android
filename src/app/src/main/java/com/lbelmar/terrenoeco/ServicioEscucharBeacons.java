@@ -62,7 +62,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
     private float mediaDistanciaSensorAlMovil = -10;
 
     //Media diaria
-    private MediaDiaria mediaDiaria;
+    public static MediaDiaria mediaDiaria;
 
     //Localizacion
     LocationManager manejador;
@@ -287,7 +287,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
                 contador = 0;
                 Date date = new Date();
 
-                mostrarInformacionDispositivoBTLE(resultado);
+                //mostrarInformacionDispositivoBTLE(resultado);
 
                 byte[] bytes = resultado.getScanRecord().getBytes();
                 TramaIBeacon tib = new TramaIBeacon(bytes);
@@ -314,15 +314,19 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
                 gestorNotidicaciones.actualizarNotificacionServicio(idNotificacionServicio, elIntentDelServicio, "Nueva medida", "Fecha " + date.toString());
 
                 // Objeto medicion constructor
-                Medida medida = new Medida(valor, getLocation().getLatitude(), getLocation().getLongitude());
-                Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): medida" + medida.toString());
+                if (getLocation() != null){
+                    Medida medida = new Medida(valor, getLocation().getLatitude(), getLocation().getLongitude());
+                    Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): medida" + medida.toString());
 
-                // Envia el objeto por la logica
-                Logica.guardarMedida(medida);
+                    // Envia el objeto por la logica
+                    Logica.guardarMedida(medida);
 
-                // Actualiza la media
-                mediaDiaria.actualizarMedia(medida.medicion_valor);
-                SensorFragment.actualizarTextoMedida(mediaDiaria.getMedia() + "");
+                    // Actualiza la media
+                    mediaDiaria.actualizarMedia(medida.medicion_valor);
+                    SensorFragment.actualizarTextoMedida(mediaDiaria.getMedia() + "");
+                }else{
+                    empezarServicioLocalizacion();
+                }
 
             }
 
@@ -419,6 +423,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
     @Override
     public void onLocationChanged(@NonNull Location location) {
         ultimaLocalizacion = location;
+
         Log.d("Localizacion", location.toString());
     }
 
