@@ -1,6 +1,7 @@
 package com.lbelmar.terrenoeco;
 // -------------------------------------------------------
 // Autor: Luis Belloch
+// Autor: Adrian Maldonado
 // Descripcion: Logica fake para acceder a la API
 // Fecha: 15/10/2021
 // -------------------------------------------------------
