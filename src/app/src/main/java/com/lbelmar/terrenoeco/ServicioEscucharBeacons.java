@@ -14,7 +14,9 @@ import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
@@ -65,8 +67,14 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
     public static MediaDiaria mediaDiaria;
 
     //Localizacion
-    LocationManager manejador;
+    static LocationManager manejador;
     static Location ultimaLocalizacion;
+
+    //Calibración
+    public static int ultimaMedida;
+    public static int valorCalibracion;
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
 
     // ---------------------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------
@@ -134,6 +142,12 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
         elIntentDelServicio = intent;
         idNotificacionServicio = gestorNotidicaciones.crearNotificacionServicio(elIntentDelServicio, "Servicio", "TExto y tal");
 
+        sharedPref = MainActivity.getActivity().getPreferences(Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+
+        valorCalibracion = sharedPref.getInt(MainActivity.getActivity().getString(R.string.nombre_clave_valor_calibracion), 0);
+
+
         mediaDiaria = new MediaDiaria();
         empezarServicioLocalizacion();
         inicializarBlueTooth();
@@ -153,13 +167,6 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
                 if (contador > 1) {
                     gestorNotidicaciones.actualizarNotificacionServicio(idNotificacionServicio, elIntentDelServicio, "Problema con el sensor", "Puede que el sensor se haya desconectado, revise la conexión ");
                 }
-                // --------------------------------------------------------------
-                // Llamadas a la logica
-                // --------------------------------------------------------------
-                Logica.obtenerTodasLasMedidas();
-                // Busca
-                //buscarTodosLosDispositivosBTLE();
-
                 Thread.sleep(tiempoDeEspera);
             }
 
@@ -294,28 +301,29 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
                 Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): dispositivo escaneado UUID:  " + Arrays.toString(tib.getUUID()));
                 // Esto es el valor de la medida
-                int valor = Utilidades.bytesToInt(tib.getMinor());
+
+                ultimaMedida = Utilidades.bytesToInt(tib.getMinor());
+
+                int medidaCalibrada = ultimaMedida + valorCalibracion;
 
                 mediaDistanciaSensorAlMovil += (resultado.getRssi() - mediaDistanciaSensorAlMovil) / 4;
                 String distancia = distanciaSensor.distanciaRelativa(mediaDistanciaSensorAlMovil);
                 SensorFragment.actualizarTextoDistancia(distancia);
 
 
-                //todo:poner los valores según la base de datos
-                Integer valorUmbralAlto = 100000;
-                if (valor > valorUmbralAlto) {
+                Integer valorUmbralAlto = SensorFragment.umbralAlto;
+                if (medidaCalibrada > valorUmbralAlto) {
                     if (idNotificacionAlertaMedida == 0) {
-                        idNotificacionAlertaMedida = gestorNotidicaciones.crearNotificacionAlertas(Color.RED, "ZONA ALTAMENTE CONTAMINADA", "Se ha detectado un valor de " + valor + " en la zona.");
+                        idNotificacionAlertaMedida = gestorNotidicaciones.crearNotificacionAlertas(Color.RED, "ZONA ALTAMENTE CONTAMINADA", "Se ha detectado un valor de " + medidaCalibrada + " en la zona.");
                     }
-                    gestorNotidicaciones.actualizarNotificacionAlertas(idNotificacionAlertaMedida, "ZONA ALTAMENTE CONTAMINADA", "Se ha detectado un valor de " + valor + " en la zona.");
+                    gestorNotidicaciones.actualizarNotificacionAlertas(idNotificacionAlertaMedida, "ZONA ALTAMENTE CONTAMINADA", "Se ha detectado un valor de " + medidaCalibrada + " en la zona.");
                 }
 
-                //SensorFragment.actualizarTextoMedida("Nueva medida : Fecha " + date.toString());
                 gestorNotidicaciones.actualizarNotificacionServicio(idNotificacionServicio, elIntentDelServicio, "Nueva medida", "Fecha " + date.toString());
 
                 // Objeto medicion constructor
                 if (getLocation() != null){
-                    Medida medida = new Medida(valor, getLocation().getLatitude(), getLocation().getLongitude());
+                    Medida medida = new Medida(medidaCalibrada, getLocation().getLatitude(), getLocation().getLongitude());
                     Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): medida" + medida.toString());
 
                     // Envia el objeto por la logica
@@ -403,28 +411,38 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
     } // ()
 
-
+    Criteria criterio = new Criteria();
+    static String proveedor;
     @SuppressLint("MissingPermission")
     public void empezarServicioLocalizacion() {
         manejador = (LocationManager) MainActivity.getContext().getSystemService(LOCATION_SERVICE);
-        Criteria criterio = new Criteria();
+
         criterio.setCostAllowed(false);
         criterio.setAltitudeRequired(false);
         criterio.setAccuracy(Criteria.ACCURACY_FINE);
-        String proveedor = manejador.getBestProvider(criterio, true);
-        ultimaLocalizacion = manejador.getLastKnownLocation(proveedor);
-        manejador.requestLocationUpdates(proveedor, 500, 0, this::onLocationChanged);
+        proveedor = manejador.getBestProvider(criterio, true);
+        ultimaLocalizacion = manejador.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        manejador.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, this::onLocationChanged);
+
+
+
     }
 
     public static Location getLocation() {
+        ultimaLocalizacion = manejador.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (ultimaLocalizacion!=null){
+            MainActivity.centrarMapaEnUbicacion(ultimaLocalizacion.getLatitude(),ultimaLocalizacion.getLongitude());
+        }
+
+
         return ultimaLocalizacion;
     }
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
         ultimaLocalizacion = location;
-
-        Log.d("Localizacion", location.toString());
+        MainActivity.centrarMapaEnUbicacion(location.getLatitude(),location.getLongitude());
+        Log.d("Localizacion", location.toString()+"123");
     }
 
 } // class

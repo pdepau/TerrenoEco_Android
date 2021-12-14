@@ -137,8 +137,6 @@ public class MediaDiaria {
         int diaMedida = date.getDate();
         int mesMedida = date.getMonth();
 
-        Log.d("aa", diaMedida + " act :  saved " + dia);
-
         if (dia != diaMedida) {
 
 

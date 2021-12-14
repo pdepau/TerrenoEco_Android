@@ -18,4 +18,5 @@
     <string name="nombre_clave_hora_inicio">horaInicioJornada</string>
     <string name="nombre_clave_hora_final">horaFinalJornada</string>
     <string name="nombre_clave_historico">historico</string>
+    <string name="nombre_clave_valor_calibracion">valor calibracion</string>
 </resources>
