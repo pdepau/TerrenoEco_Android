@@ -1,5 +1,12 @@
 package com.lbelmar.terrenoeco.ui.sensor;
 
+// -------------------------------------------------------
+// Autor: Pau Blanes
+// Autor: Adrian Maldonado
+// Descripcion: MapaFragment
+// Fecha: 28/11/2021
+// -------------------------------------------------------
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -41,8 +48,8 @@ public class SensorFragment extends Fragment {
     static ImageView fondoColorMinimo;
 
 
-    static Integer umbralAlto = 40;
-    static Integer umbralMedio = 20;
+    public static Integer umbralAlto = 40;
+    public static Integer umbralMedio = 20;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -74,10 +81,10 @@ public class SensorFragment extends Fragment {
         int min = sharedPref.getInt(MainActivity.getActivity().getString(R.string.nombre_clave_minimo_diario), 64000);
         float mid = sharedPref.getFloat(MainActivity.getActivity().getString(R.string.nombre_clave_media), 0);
 
-        Log.d("adsa",max + " : " + min);
-        actualizarTextoMinimo(min+"");
-        actualizarTextoMaximo(max+"");
-        actualizarTextoMedida(mid+"");
+        Log.d("adsa", max + " : " + min);
+        actualizarTextoMinimo(min + "");
+        actualizarTextoMaximo(max + "");
+        actualizarTextoMedida(mid + "");
 
     }
 
@@ -92,12 +99,12 @@ public class SensorFragment extends Fragment {
         if (textoMedida != null) {
             textoMedida.setText(texto);
             float media = Float.parseFloat(texto);
-            if (media > umbralAlto){
-                fondoColorMedia.setColorFilter(ContextCompat.getColor(MainActivity.getContext(),R.color.Rogo));
-            }else if(media > umbralMedio){
-                fondoColorMedia.setColorFilter(ContextCompat.getColor(MainActivity.getContext(),R.color.Narhanga));
-            }else {
-                fondoColorMedia.setColorFilter(ContextCompat.getColor(MainActivity.getContext(),R.color.Berde));
+            if (media > umbralAlto) {
+                fondoColorMedia.setColorFilter(ContextCompat.getColor(MainActivity.getContext(), R.color.Rogo));
+            } else if (media > umbralMedio) {
+                fondoColorMedia.setColorFilter(ContextCompat.getColor(MainActivity.getContext(), R.color.Narhanga));
+            } else {
+                fondoColorMedia.setColorFilter(ContextCompat.getColor(MainActivity.getContext(), R.color.Berde));
             }
         }
     }
@@ -108,12 +115,12 @@ public class SensorFragment extends Fragment {
             textoMinimo.setText(texto);
 
             float media = Float.parseFloat(texto);
-            if (media > umbralAlto){
-                fondoColorMinimo.setColorFilter(ContextCompat.getColor(MainActivity.getContext(),R.color.Rogo));
-            }else if(media > umbralMedio){
-                fondoColorMinimo.setColorFilter(ContextCompat.getColor(MainActivity.getContext(),R.color.Narhanga));
-            }else {
-                fondoColorMinimo.setColorFilter(ContextCompat.getColor(MainActivity.getContext(),R.color.Berde));
+            if (media > umbralAlto) {
+                fondoColorMinimo.setColorFilter(ContextCompat.getColor(MainActivity.getContext(), R.color.Rogo));
+            } else if (media > umbralMedio) {
+                fondoColorMinimo.setColorFilter(ContextCompat.getColor(MainActivity.getContext(), R.color.Narhanga));
+            } else {
+                fondoColorMinimo.setColorFilter(ContextCompat.getColor(MainActivity.getContext(), R.color.Berde));
             }
         }
     }
@@ -124,12 +131,12 @@ public class SensorFragment extends Fragment {
             textoMaximo.setText(texto);
 
             float media = Float.parseFloat(texto);
-            if (media > umbralAlto){
-                fondoColorMaximo.setColorFilter(ContextCompat.getColor(MainActivity.getContext(),R.color.Rogo));
-            }else if(media > umbralMedio){
-                fondoColorMaximo.setColorFilter(ContextCompat.getColor(MainActivity.getContext(),R.color.Narhanga));
-            }else {
-                fondoColorMaximo.setColorFilter(ContextCompat.getColor(MainActivity.getContext(),R.color.Berde));
+            if (media > umbralAlto) {
+                fondoColorMaximo.setColorFilter(ContextCompat.getColor(MainActivity.getContext(), R.color.Rogo));
+            } else if (media > umbralMedio) {
+                fondoColorMaximo.setColorFilter(ContextCompat.getColor(MainActivity.getContext(), R.color.Narhanga));
+            } else {
+                fondoColorMaximo.setColorFilter(ContextCompat.getColor(MainActivity.getContext(), R.color.Berde));
             }
         }
     }
@@ -162,23 +169,22 @@ public class SensorFragment extends Fragment {
         }
 
     }
-    public void abrirSettings(View v){
+
+    public void abrirSettings(View v) {
         Intent intent = new Intent(getContext(), SettingsActivity.class);
         startActivity(intent);
     }
 
-    public static void aaa(int a, String b){
-        Log.d("ADRA",b+"aa");
+    public static void aaa(int a, String b) {
+        Log.d("ADRA", b + "aa");
 
 
-        if (a == 200){
+        if (a == 200) {
             String[] strings = b.split(":");
 
             umbralMedio = Integer.parseInt((strings[4].split(","))[0]);
             umbralAlto = Integer.parseInt((strings[3].split(","))[0]);
         }
-
-
 
 
     }

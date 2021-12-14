@@ -2,6 +2,7 @@ package com.lbelmar.terrenoeco;
 
 // -------------------------------------------------------
 // Autor: Luis Belloch
+// Autor: Adrian Maldonado
 // Descripcion: MainActivity
 // Fecha: 15/10/2021
 // -------------------------------------------------------
@@ -13,6 +14,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
@@ -27,10 +29,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lbelmar.terrenoeco.databinding.ActivityMainBinding;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.lbelmar.terrenoeco.ui.mapa.MapaFragment;
 
 
 // ------------------------------------------------------------------
@@ -46,13 +45,13 @@ public class MainActivity extends AppCompatActivity {
 
     private Intent elIntentDelServicio = null;
 
-
     static Context mContext;
     static Activity mActivity;
 
-
     private ActivityMainBinding binding;
 
+    //Booleano para que no se actualize constantemente el mapa con cada medida
+    static boolean esperarParaActualizarMapa = false;
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
@@ -61,7 +60,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(ETIQUETA_LOG, " onCreate(): empieza ");
-
+        mContext = this;
+        mActivity = this;
+        /**
+         * Parte de las pestañas
+         */
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -73,12 +76,13 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         //Contexto y actividad para las clases abstractas
-        mContext = this;
-        mActivity = this;
 
-        //Peticion de los permisos
+
+        /**
+         * Peticion de los permisos
+         */
         if (
-                        ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                         || ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
                         || ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED
                         || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
@@ -98,15 +102,11 @@ public class MainActivity extends AppCompatActivity {
 
         arrancarServicio();
         Log.d(ETIQUETA_LOG, " onCreate(): termina ");
-        Logica.obtenerTipo(1);
+        Logica.obtenerTipo(2);
 
 
     } // onCreate()
 
-
-
-    // --------------------------------------------------------------
-    // --------------------------------------------------------------
 
     /**
      * Actualiza los permisos cuando se piden
@@ -136,8 +136,9 @@ public class MainActivity extends AppCompatActivity {
         // permissions this app might request.
     } // ()
 
-    // ---------------------------------------------------------------------------------------------
-    // ---------------------------------------------------------------------------------------------
+    /**
+     * Arrancar el servicio de escucha de beacons
+     */
     public void arrancarServicio() {
         Log.d(ETIQUETA_LOG, " boton arrancar servicio Pulsado");
 
@@ -155,19 +156,60 @@ public class MainActivity extends AppCompatActivity {
 
     } // ()
 
-    public void abrirSettings(View v){
+    /**
+     * Funcion para abrir la vista settings
+     *
+     * @param v
+     */
+    public void abrirSettings(View v) {
         Intent intent = new Intent(getContext(), SettingsActivity.class);
         startActivity(intent);
     }
 
+
+
+    /**
+     *
+     * Centra el mapa del Webview en la ubicacion que le pasas
+     *
+     * @param lat
+     * @param lon
+     */
+    public static void centrarMapaEnUbicacion(double lat, double lon) {
+
+        //en caso de que el mapa no este iniciado
+        if(MapaFragment.webView == null)return;
+
+        if (!esperarParaActualizarMapa) {
+            esperarParaActualizarMapa = true;
+            MapaFragment.webView.loadUrl("javascript:centrarMapaEnUbicacion(" + lat + "," + lon + ")");
+            ServicioEscucharBeacons.getLocation();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    esperarParaActualizarMapa = false;
+                }
+            }, 1000);
+        }
+    }
+
+    /**
+     * Devuelve el contexto
+     *
+     * @return
+     */
     public static Context getContext() {
         return mContext;
     }
 
+    /**
+     * Devuelve la actividad
+     *
+     * @return
+     */
     public static Activity getActivity() {
         return mActivity;
     }
-
 
 
 } // class
