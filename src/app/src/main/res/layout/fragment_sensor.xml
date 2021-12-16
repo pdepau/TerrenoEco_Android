@@ -5,54 +5,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_banner"
-    tools:context=".ui.sensor.SensorFragment"
-    android:theme="@style/Theme.BiometricApp">
+    android:theme="@style/Theme.BiometricApp"
+    tools:context=".ui.sensor.SensorFragment">
 
     <ImageView
         android:id="@+id/indicadorColorMedia"
-        android:layout_width="80dp"
-        android:layout_height="64dp"
-        android:src="@drawable/frame"
-        android:tint="@color/Narhanga"
-        app:layout_constraintBottom_toBottomOf="@+id/textoMedia"
-        app:layout_constraintEnd_toEndOf="@+id/textoMedia"
-        app:layout_constraintStart_toStartOf="@+id/textoMedia"
-        app:layout_constraintTop_toTopOf="@+id/textView4"
-        app:srcCompat="@drawable/frame_22" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/frame_22"
+        app:layout_constraintBottom_toTopOf="@+id/indicadorColorMinimo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton2"
+        app:tint="@color/Narhanga" />
 
     <ImageView
         android:id="@+id/indicadorColorMinimo"
-        android:layout_width="80dp"
-        android:layout_height="64dp"
-        android:src="@drawable/frame"
-        android:tint="@color/Berde"
-        app:layout_constraintBottom_toBottomOf="@+id/textoMedia"
-        app:layout_constraintEnd_toEndOf="@+id/textoMinimo"
-        app:layout_constraintStart_toStartOf="@+id/textoMinimo"
-        app:layout_constraintTop_toTopOf="@+id/textView4"
-        app:srcCompat="@drawable/frame_22" />
+        android:layout_width="0dp"
+        android:layout_height="128dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/frame_22"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/indicadorColorMaximo"
+        app:srcCompat="@drawable/frame_22"
+        app:tint="@color/Berde" />
 
     <ImageView
         android:id="@+id/indicadorColorMaximo"
-        android:layout_width="80dp"
-        android:layout_height="64dp"
-        android:src="@drawable/frame"
-        android:tint="@color/Rogo"
-        app:layout_constraintBottom_toBottomOf="@+id/textoMedia"
-        app:layout_constraintEnd_toEndOf="@+id/textoMaximo"
-        app:layout_constraintStart_toStartOf="@+id/textoMaximo"
-        app:layout_constraintTop_toTopOf="@+id/textView4"
-        app:srcCompat="@drawable/frame_22" />
-
-    <TextView
-        android:id="@+id/textoVisualMedida2"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Pibe, arrancá el servicio"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="128dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/frame_22"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/indicadorColorMinimo"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:srcCompat="@drawable/frame_22"
+        app:tint="@color/Rogo" />
 
     <TextView
         android:id="@+id/textView"
@@ -84,37 +83,40 @@
         android:id="@+id/texto_Maximo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Máximo"
         android:textColor="@color/white"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textView4"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton2"
-        app:layout_constraintTop_toTopOf="@+id/imageButton2" />
+        app:layout_constraintEnd_toEndOf="@+id/indicadorColorMaximo"
+        app:layout_constraintStart_toStartOf="@+id/indicadorColorMaximo"
+        app:layout_constraintTop_toTopOf="@+id/indicadorColorMaximo" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Media"
+        android:layout_marginTop="16dp"
+        android:text="Media de hoy"
         android:textColor="@color/white"
+        android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/texto_Minimo"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/texto_Maximo"
-        app:layout_constraintTop_toTopOf="@+id/texto_Maximo" />
+        app:layout_constraintEnd_toEndOf="@+id/indicadorColorMedia"
+        app:layout_constraintStart_toStartOf="@+id/indicadorColorMedia"
+        app:layout_constraintTop_toTopOf="@+id/indicadorColorMedia" />
 
     <TextView
         android:id="@+id/texto_Minimo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Mínimo"
         android:textColor="@color/white"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toTopOf="@+id/textView4" />
+        app:layout_constraintEnd_toEndOf="@+id/indicadorColorMinimo"
+        app:layout_constraintStart_toStartOf="@+id/indicadorColorMinimo"
+        app:layout_constraintTop_toTopOf="@+id/indicadorColorMinimo" />
 
     <TextView
         android:id="@+id/textoMinimo"
@@ -122,11 +124,12 @@
         android:layout_height="wrap_content"
         android:text="34"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="60sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/textoMedia"
+        app:layout_constraintBottom_toBottomOf="@+id/indicadorColorMinimo"
         app:layout_constraintEnd_toEndOf="@+id/texto_Minimo"
-        app:layout_constraintStart_toStartOf="@+id/texto_Minimo" />
+        app:layout_constraintStart_toStartOf="@+id/texto_Minimo"
+        app:layout_constraintTop_toBottomOf="@+id/texto_Minimo" />
 
     <TextView
         android:id="@+id/textoMedia"
@@ -135,11 +138,12 @@
         android:maxLength="5"
         android:text="12"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="96sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/textoMaximo"
+        app:layout_constraintBottom_toBottomOf="@+id/indicadorColorMedia"
         app:layout_constraintEnd_toEndOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/textView4" />
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/textoMaximo"
@@ -147,11 +151,12 @@
         android:layout_height="wrap_content"
         android:text="43"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="60sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
+        app:layout_constraintBottom_toBottomOf="@+id/indicadorColorMaximo"
         app:layout_constraintEnd_toEndOf="@+id/texto_Maximo"
-        app:layout_constraintStart_toStartOf="@+id/texto_Maximo" />
+        app:layout_constraintStart_toStartOf="@+id/texto_Maximo"
+        app:layout_constraintTop_toBottomOf="@+id/texto_Maximo" />
 
     <ImageButton
         android:id="@+id/imageButton2"
@@ -163,10 +168,10 @@
         android:padding="6dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_gear"
-        android:tint="@color/morado"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:tint="@color/morado" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -217,12 +222,12 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:text="* valores en mg/m³"
         android:textColor="@color/white"
         android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/texto_Minimo"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

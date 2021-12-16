@@ -89,12 +89,13 @@ public class MapaFragment extends Fragment {
                     Log.d("Web", consoleMessage.message());
                     String[] valores = consoleMessage.message().split(",");
                     int valorDelTipodelSensor = Integer.parseInt(valores[2]);
-
+                    float rango = valorDelTipodelSensor * 0.2F;
                     int calibracion = valorDelTipodelSensor - ServicioEscucharBeacons.ultimaMedida;
-                    editor.putInt(MainActivity.getActivity().getString(R.string.nombre_clave_valor_calibracion), calibracion);
-                    ServicioEscucharBeacons.valorCalibracion = calibracion;
-                    editor.apply();
-
+                    if (rango < calibracion){
+                        editor.putInt(MainActivity.getActivity().getString(R.string.nombre_clave_valor_calibracion), calibracion);
+                        ServicioEscucharBeacons.valorCalibracion = calibracion;
+                        editor.apply();
+                    }
 
                 }
                 return true;
@@ -106,7 +107,7 @@ public class MapaFragment extends Fragment {
         webView.getSettings().setAppCacheEnabled(false);
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 
-        webView.loadUrl("http://192.168.1.134/Terreno-Eco/mapa-movil.php");
+        webView.loadUrl("http://192.168.1.134/TerrenoEco_Frontend/src/mapa-movil.php");
         Log.d("asdas", webView.getProgress() + "a");
     }
 

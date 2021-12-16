@@ -397,25 +397,40 @@
 
             <Spinner
                 android:id="@+id/spinner2"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                style="@style/mySpinnerItemStyle"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="24dp"
+                android:background="@drawable/frame_22"
+                android:backgroundTint="@color/white"
+                android:dropDownSelector="@drawable/checkbox_selector"
                 android:entries="@array/horas_array"
+                android:foreground="@drawable/frame_border_cuadrado"
+                android:foregroundTint="@color/teal_200"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:spinnerMode="dialog"
                 app:layout_constraintBottom_toBottomOf="@+id/textView21"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView21" />
 
             <Spinner
                 android:id="@+id/spinner3"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                style="@style/mySpinnerItemStyle"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="24dp"
+                android:background="@drawable/frame_22"
+                android:backgroundTint="@color/white"
+                android:dropDownSelector="@drawable/checkbox_selector"
                 android:entries="@array/horas_array"
+                android:foreground="@drawable/frame_border_cuadrado"
+                android:foregroundTint="@color/teal_200"
+                android:spinnerMode="dialog"
                 app:layout_constraintBottom_toBottomOf="@+id/textView22"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView22" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>S
+    </LinearLayout>
 
 </ScrollView>
