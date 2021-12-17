@@ -166,6 +166,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void abrirSalud(View v) {
+        Intent intent = new Intent(getContext(), SaludActivity.class);
+        startActivity(intent);
+    }
 
 
     /**

@@ -1,5 +1,6 @@
 package com.lbelmar.terrenoeco.ui.usuario;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.lbelmar.terrenoeco.SaludActivity;
+import com.lbelmar.terrenoeco.SettingsActivity;
 import com.lbelmar.terrenoeco.databinding.FragmentUsuarioBinding;
 
 public class UsuarioFragment extends Fragment {
@@ -27,13 +30,7 @@ public class UsuarioFragment extends Fragment {
         binding = FragmentUsuarioBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
-        usuarioViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
         return root;
     }
 
@@ -41,5 +38,9 @@ public class UsuarioFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+    public void abrirSalud(View v) {
+        Intent intent = new Intent(getContext(), SaludActivity.class);
+        startActivity(intent);
     }
 }
