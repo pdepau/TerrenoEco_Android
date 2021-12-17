@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00FFFFFF"
+    android:backgroundTint="#FFFFFF"
+    android:overScrollMode="never"
+    android:persistentDrawingCache="none"
+    android:scrollIndicators="none"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:scrollbarStyle="insideInset"
+    android:scrollbars="none"
+    android:touchscreenBlocksFocus="true"
+    android:transitionGroup="true"
+    android:visibility="visible"
+    tools:context=".ui.usuario.UsuarioFragment">
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-1dp"
+        android:src="@drawable/angryimg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="-1dp"
+        android:src="@drawable/angryimg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView7"
+        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck"
+        android:id="@+id/scrollView2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/texto_semana2"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Recorrido 7'4 KM!"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/texto_semana"
+                app:layout_constraintStart_toStartOf="@+id/texto_semana"
+                app:layout_constraintTop_toBottomOf="@+id/texto_semana" />
+
+            <TextView
+                android:id="@+id/texto_semana"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="!Esta Semana Has"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/fecha_progreso"
+                app:layout_constraintStart_toStartOf="@+id/fecha_progreso"
+                app:layout_constraintTop_toBottomOf="@+id/fecha_progreso" />
+
+            <TextView
+                android:id="@+id/fecha_progreso"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25/10/2021 - 01/11/2021"
+                android:textColor="#808080"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="@+id/texto_progreso"
+                app:layout_constraintStart_toStartOf="@+id/texto_progreso"
+                app:layout_constraintTop_toBottomOf="@+id/texto_progreso" />
+
+            <TextView
+                android:id="@+id/texto_progreso"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="PROGERSO SEMANAL"
+                android:textColor="#808080"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/barra_progreso2"
+                app:layout_constraintStart_toEndOf="@+id/barra_progreso1"
+                app:layout_constraintTop_toBottomOf="@+id/texto_diario" />
+
+            <TextView
+                android:id="@+id/barra_progreso1"
+                android:layout_width="100dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="52dp"
+                android:background="#808080"
+                android:text="-"
+                android:textColor="#2BE4E4"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/texto_medalla" />
+
+            <TextView
+                android:id="@+id/barra_progreso2"
+                android:layout_width="100dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="52dp"
+                android:background="#808080"
+                android:text="-"
+                android:textColor="#2BE4E4"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/texto_salud" />
+
+            <TextView
+                android:id="@+id/texto_salud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SALUD"
+                android:textColor="#2BE4E4"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/boton_salud"
+                app:layout_constraintStart_toStartOf="@+id/boton_salud"
+                app:layout_constraintTop_toBottomOf="@+id/boton_salud" />
+
+            <TextView
+                android:id="@+id/texto_diario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DIARIO"
+                android:textColor="#2BE4E4"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/boton_diario"
+                app:layout_constraintStart_toStartOf="@+id/boton_diario"
+                app:layout_constraintTop_toBottomOf="@+id/boton_diario" />
+
+            <TextView
+                android:id="@+id/texto_medalla"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MEDALLAS"
+                android:textColor="#2BE4E4"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/boton_medallas"
+                app:layout_constraintStart_toStartOf="@+id/boton_medallas"
+                app:layout_constraintTop_toBottomOf="@+id/boton_medallas" />
+
+            <ImageButton
+                android:id="@+id/boton_diario"
+                android:layout_width="53dp"
+                android:layout_height="53dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/frame_degradado"
+                android:src="@android:drawable/ic_menu_manage"
+                app:layout_constraintEnd_toStartOf="@+id/boton_salud"
+                app:layout_constraintStart_toEndOf="@+id/boton_medallas"
+                app:layout_constraintTop_toBottomOf="@+id/texto_usuario" />
+
+            <ImageButton
+                android:id="@+id/boton_salud"
+                android:layout_width="53dp"
+                android:layout_height="53dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/frame_degradado"
+                android:onClick="abrirSalud"
+                android:src="@android:drawable/ic_menu_manage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/texto_usuario" />
+
+            <ImageButton
+                android:id="@+id/boton_medallas"
+                android:layout_width="53dp"
+                android:layout_height="53dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/frame_degradado"
+                android:src="@android:drawable/ic_menu_manage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/texto_usuario" />
+
+
+
+            <ImageView
+                android:id="@+id/imagen_avatar"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/texto_usuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Nombre Usuario"
+                android:textColor="#2BE4E4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imagen_avatar" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

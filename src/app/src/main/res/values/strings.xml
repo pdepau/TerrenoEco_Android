@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Terreno Eco</string>
+    <string name="buscar">Iniciar Servicio</string>
+    <string name="parar_servicio">Parar servicio</string>
+    <string name="textoSensorMuyLejos">≻10 m</string>
+    <string name="textoSensorLejos">≻5 m</string>
+    <string name="textoSensorCerca">≻2 m</string>
+    <string name="textoSensorMuyCerca">≺2 m</string>
+    <string name="nombre_clave_media">mediaDiaria</string>
+    <string name="nombre_clave_cantidad_media">cuantasMediaDiaria</string>
+    <string name="nombre_clave_dia_de_la_media">diaDeLaMedia</string>
+    <string name="title_home">SENSOR</string>
+    <string name="title_dashboard">MAPA</string>
+    <string name="title_notifications">USUARIO</string>
+    <string name="access_token">pk.eyJ1IjoicGRlcGF1IiwiYSI6ImNrYzZnYmQxeTByOHEyem8wdzBxZTZvZ2kifQ.2aSg9PWFRF351XqRK1l0KQ</string>
+    <string name="nombre_clave_maximo_diario">maximoDiario</string>
+    <string name="nombre_clave_minimo_diario">minimoDiario</string>
+    <string name="nombre_clave_hora_inicio">horaInicioJornada</string>
+    <string name="nombre_clave_hora_final">horaFinalJornada</string>
+    <string name="nombre_clave_historico">historico</string>
+    <string name="nombre_clave_valor_calibracion">valor calibracion</string>
+</resources>
