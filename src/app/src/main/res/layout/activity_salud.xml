@@ -3,7 +3,853 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:onClick="cerrar"
+    android:paddingHorizontal="2dp">
+
+    <ScrollView
+        android:id="@+id/scrollViewNO2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteX="180dp">
+
+            <TextView
+                android:id="@+id/textView228"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Recomendaciones:"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tableLayout22" />
+
+            <TextView
+                android:id="@+id/textView231"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="En los episodios de alta contaminación por dióxido de nitrógeno, la ventilación de las viviendas debe ser la mínima e igualmente los procesos de combustión dentro de las viviendas."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView230" />
+
+            <TextView
+                android:id="@+id/textView232"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Las familias que usan cocinas o calentadores de gas, o que fuman pueden limitar la exposición a los óxidos de nitrógeno permitiendo de vez en cuando la circulación de aire fresco dentro de las viviendas."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView231" />
+
+            <TextView
+                android:id="@+id/textView230"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:paddingHorizontal="2dp"
+                android:text="Debido a que la ruta más probable de exposición al dióxido de nitrógeno es respirar aire contaminado, se debe tratar de limitar las actividades al aire libre durante los períodos de mayor contaminación."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView228" />
+
+            <TableLayout
+                android:id="@+id/tableLayout22"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:stretchColumns="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView227">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="180dp"
+                        android:background="#666666"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Concentración de dioxido de nitrogeno"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="136dp"
+                        android:layout_height="match_parent"
+                        android:background="#666666"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Efecto"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="0,01 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Aparición de síntomas leves respiratorios en niños"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="0,1 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Cuando se supera esta concentración media en el 40% de los días suele producirse un aumento de la frecuencia de infecciones en vías respiratorias"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="0,11 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Tras la exposición durante una hora se informó un aumento de reactividad de la vía aérea en varios sujetos expuestos"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="58dp"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="0,112"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Umbral del olor"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="0,2 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Tras la exposición durante dos horas se informó un aumento en la reactividad de la vía aérea en varios sujetos expuestos"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow android:background="#208EBF">
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="0,25 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Se informó de un aumento en la reactividad de la vía aérea no específicos en asmáticos"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="0,3 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Se ha observado respuestas en la función pulmonar bajo exposiciones a esta concentración en asmáticos realizando ejercicio moderado"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="0,32 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Tras la exposición durante 30 minutos se informó de que potenciaba los broncoespasmos inducidos por el ejercicio y la reactividad de la vía aérea a la provocación de aire frío en asmáticos"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="0,5 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Tras la exposición durante una hora se informó de un aumento en la reactividad de la vía aérea en sujetos normales"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="1 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Se ha comprobado que se necesita superar esta concentración para producir daños en adultos sanos"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="10-20 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Ligeramente irritante"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="20 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="IDHL(Inmediatamente peligroso para la vida y la salud; 30 minutos) "
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text=">150 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Se ha informado de muerte por edema pulmonar"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="174 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Se ha pronosticado que deberia de producirse un 50% de mortalidad durante una exposicion de una hora"
+                        android:textColor="@color/white" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/textView224"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Efectos:"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView225"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Se ha comprobado que el NO₂ provoca daños al parénquima pulmonar, e incluso ante exposiciones crónicas a concetraciones bajas, el resultado es la aparición de cambios patologicos semejantes a los del enfisema pulmonar; otros efectos son sensación de ahogo y dolor de pecho"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView224" />
+
+            <TextView
+                android:id="@+id/textView226"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:autoText="false"
+                android:isScrollContainer="false"
+                android:text="Los niveles bajos de óxidos de nitrógeno en el aire pueden irritar los ojos, la nariz, la garganta, los pulmones, y posiblemente causar tos y una sensación de falta de aliento, cansancio y náusea. La exposición a bajos niveles también puede producir acumulación de líquido en los pulmones 1 ó 2 días después de la exposición. Respirar altos niveles de óxidos de nitrógeno puede rápidamente producir quemaduras, espasmos y dilatación de los tejidos en la garganta y las vías respiratorias superiores, reduciendo la oxigenación de los tejidos del cuerpo, produciendo acumulación de líquido en los pulmones y la muerte. El contacto con la piel o los ojos puede producir quemaduras."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView225" />
+
+            <TextView
+                android:id="@+id/textView227"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Los asmáticos son especialmente sensibles a los efectos del NO2, se ha encontrado que el 70% de los asmáticos responden a concentraciones más bajas que las personas sanas"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView226" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/scrollViewCO"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteX="180dp">
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Recomendaciones:"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tableLayout2" />
+
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="El humo del tabaco ambiental en viviendas, oficinas, vehiculos y restaurantes puede elevar la concentración de CO media, por lo que no es aconsejable fumar en espacios interiores."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+            <TextView
+                android:id="@+id/textView32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Debido a que la ruta más probable de exposicón al CO es respirar aire contaminado, se debe tratar de limitar las actividades al aire libre durante periódos  de mayor concentración"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView31" />
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:paddingHorizontal="2dp"
+                android:text="El aire interior generalmente puede contener cierta concentración de CO debido a que este proviene de elementos que se encuentran generalmente en viviendas como: chimeneas,calderas, calentadores de agua y aparatos que queman combustible tales como estufas."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+            <TableLayout
+                android:id="@+id/tableLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:stretchColumns="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView27">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="180dp"
+                        android:background="#666666"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Concentración de monoxido de carbono"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="136dp"
+                        android:layout_height="match_parent"
+                        android:background="#666666"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Efecto"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="0-2 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Ligero dolor de cabeza en algunos casos"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="8,7 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="No se excede el nivel carboxihemoglobina del 2.5 %, aun cuando un sujeto normal realice ejercicio ligero o moderado durante 8 horas"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="26 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="No se excede el nivel carboxihemoglobina del 2.5 %, aun cuando un sujeto normal realice ejercicio ligero o moderado durante una hora"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="58dp"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="30 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="La exposición diaria a esta concentración es equivalente a fumar 20 cigarrillos al día"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="35 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Las personas que tienen enfermedades cardíacas no deben exponerse a niveles superiores a esta concentración"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow android:background="#208EBF">
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="52 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="No se excede el nivel carboxihemoglobina del 2.5 %, aun cuando un sujeto normal realice ejercicio ligero o moderado durante 30 minutos"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="87 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="No se excede el nivel carboxihemoglobina del 2.5 %, aun cuando un sujeto normal realice ejercicio ligero o moderado durante 15 minutos"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="100 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Se informó del primer indicio de angina en sujetos que hacían ejercicio con cardiopatía coronaria expuestos a esta concentración"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="200-400 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Después de 5-6 horas se puede observar un leve dolor de cabeza, náuseas, vértigo y síntomas mentales"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="400-700 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Después de 4-5 horas se puede observar un fuerte dolor de cabeza, incoordinación muscular, debilidad, vómitos y colapso"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="700-1100 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Después de 3-5 horas se puede observar un fuerte dolor de cabeza, debilidad, vómitos y colapso"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="1100-1600 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Después de 1.5-3 horas se puede observar coma. (la respiración es aún bastante buena a no ser que el envenenamiento se haya prolongado)"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="1600-2000 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Después de 1-1.5 horas hay posibilidad de muerte"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="5000-10000 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Después de 2-15 minutos se puede producir la muerte"
+                        android:textColor="@color/white" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Efectos:"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Exposiciones pequeñas: intenso dolor de cabeza, fatiga, disnea y mareo."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:autoText="false"
+                android:isScrollContainer="false"
+                android:text=" Exposiciones moderadas: fuertes dolores de cabeza, mareos, nauseas, vomitos,sofocos, disminucion de la destreza manual, aumento del tiempo de reacción, vista borrosa u oscurecida, alucinaciones y toxicidad cardiovascular."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Exposiciones graves: convulsiones, evacuación involuntaria, depresión cardiorrespiratoria, edema pulmonar, fallo respiratorio, perdida del conocimiento, coma, colapso y muerte"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/button2"
@@ -28,7 +874,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/degradado_salud" />
+        app:srcCompat="@drawable/degradado_salud"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/textView12"
@@ -42,12 +889,532 @@
         app:layout_constraintStart_toStartOf="@+id/imageView5"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <WebView
-        android:id="@+id/webSalud"
+    <Button
+        android:id="@+id/button3"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:backgroundTint="@android:color/transparent"
+        android:onClick="verNO2"
+        android:shadowColor="#00FFFFFF"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="0"
+        android:text="NO₂"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <Button
+        android:id="@+id/button4"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/transparent"
+        android:onClick="verSO2"
+        android:shadowColor="#00FFFFFF"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="0"
+        android:text="SO₂"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button3"
+        app:layout_constraintTop_toTopOf="@+id/button3" />
+
+    <Button
+        android:id="@+id/button5"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/transparent"
+        android:onClick="verCO"
+        android:shadowColor="#00FFFFFF"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="0"
+        android:text="CO"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/button3" />
+
+    <ImageView
+        android:id="@+id/imageViewBarraCO"
+        android:layout_width="70dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="-11dp"
+        app:layout_constraintEnd_toEndOf="@+id/button5"
+        app:layout_constraintStart_toStartOf="@+id/button5"
+        app:layout_constraintTop_toBottomOf="@+id/button5"
+        app:srcCompat="@drawable/gas_seleccionado"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/imageViewBarraNO2"
+        android:layout_width="70dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="-5dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/button3"
+        app:layout_constraintStart_toStartOf="@+id/button3"
+        app:layout_constraintTop_toTopOf="@+id/scrollViewNO2"
+        app:srcCompat="@drawable/gas_seleccionado"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/imageViewBarraSO2"
+        android:layout_width="70dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="-10dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/button4"
+        app:layout_constraintStart_toStartOf="@+id/button4"
+        app:layout_constraintTop_toBottomOf="@+id/button4"
+        app:srcCompat="@drawable/gas_seleccionado"
+        tools:ignore="ImageContrastCheck" />
+
+    <ScrollView
+        android:id="@+id/scrollViewSO2"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteX="180dp">
+
+            <TextView
+                android:id="@+id/textView328"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Recomendaciones:"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tableLayout32" />
+
+            <TextView
+                android:id="@+id/textView331"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Las personas con dificultades respiratorias deben prestar una atención especial a estas advertencias. Además, las personas asmáticas deben limitar el ejercicio al aire libre cuando los niveles de dióxido de azufre en el aire sean altos."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView330" />
+
+            <TextView
+                android:id="@+id/textView332"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="En los episodios de alta contaminación por dióxido de azufre, la ventilación de las viviendas debe ser mínima."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView331" />
+
+            <TextView
+                android:id="@+id/textView330"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:paddingHorizontal="2dp"
+                android:text="Debido a que la ruta más probable de exposición al dióxido de azufre es respirar aire contaminado, se debe tratar de limitar las actividades al aire libre durante los períodos de mayor contaminación. Aunque los niveles de dióxido de azufre en el aire son normalmente más altos durante los meses de invierno, se ha demostrado que la exposición de los seres humanos es más alta durante los meses de verano. Esto se debe seguramente a que la gente disfruta de actividades al aire libre durante los meses de verano y abre las ventanas para ventilar sus hogares."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView328" />
+
+            <TableLayout
+                android:id="@+id/tableLayout32"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:stretchColumns="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView327">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="180dp"
+                        android:background="#666666"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Concentración de dioxido de azufre"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="136dp"
+                        android:layout_height="match_parent"
+                        android:background="#666666"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Efecto"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="0,2 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Los individuos normales y asmáticos (leves, moderados, graves) y atópicos más sensibles mostraron un aumento significativo de la resistencia específica de la vía aérea (sRaw), pero no clínicamente significativos debido a que no había síntomas respiratorios."
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="0,25 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Voluntarios con asma leve sometidos a ejercicio moderado y expuestos durante 75 minutos no mostraron aumento considerable de la sRaw"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="0,4 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Individuos asmáticos de moderados a graves mostraron después de una exposición de 55 minutos aumentos significativos de la sRaw y de los síntomas respiratorios"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="58dp"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="0,5 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Individuos asmáticos leves sometidos a ejercicio y expuestos durante 75 minutos mostraron aumento significativo de la sRaw."
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="0,6 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Individuos asmáticos atópicos mostraron después de una exposición de 15 a 55 minutos aumentos significativos de la sRaw y de los síntomas respiratorios."
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow android:background="#208EBF">
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="1 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Individuos asmáticos leves sometidos a ejercicio y expuestos durante 75 minutos mostraron aumento significativo de la sRaw"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="1,5 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Aparición de casos de leucemia en exposiciones de 40 años"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="2 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_berde"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Individuos sanos sometidos durante 30 minutos y realizando ejercicio continuo no mostraron cambios en pruebas de función pulmonar"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="3-5 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Detección del olor"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="6-12 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Puede causar irritación nasal y de la garganta"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="10 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Se puede observar irritación en las vías respiratorias superiores y posibles hemorragias nasales"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="20 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_naranga"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Puede causar irritación en los ojos"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="50-100 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Se puede observar irritación grave de los ojos, garganta, tracto respiratorio inferior y lagrimeo, que pueden ser tolerados durante 30 - 60 minutos."
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="100 ppm-400 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Se ha pronosticado que deberia de producirse un 50% de mortalidad durante una exposicion de una hora"
+                        android:textColor="@color/white" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text=">400 ppm"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="214dp"
+                        android:background="@drawable/border_rogo"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="Concentración mínima letal en aire durante una exposición de 1 minuto."
+                        android:textColor="@color/white" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/textView324"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Efectos:"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView325"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Los estudios realizados en animales expuestos al dióxido de azufre han descrito efectos respiratorios similares a los observados en seres humanos. La exposición de cobayas a niveles bajos (2.600 μg/m3 -1 ppm-), alteró el ritmo respiratorio haciendo la respiración menos profunda. La exposición a concentraciones más altas produce síntomas más graves, tales como disminución de la frecuencia respiratoria, inflamación o infección de las vías respiratorias y destrucción de áreas del pulmón"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView324" />
+
+            <TextView
+                android:id="@+id/textView326"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:autoText="false"
+                android:isScrollContainer="false"
+                android:text="Las personas asmáticas que hacen ejercicios físicos son susceptibles a los efectos respiratorios de concentraciones relativamente bajas (650 μg/m3 -0.25 ppm-) de dióxido de azufre."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView325" />
+
+            <TextView
+                android:id="@+id/textView327"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Se sabe que las personas asmáticas que realizan ejercicio son susceptibles a bajas concentraciones. Por lo tanto, se espera que los niños asmáticos sean más susceptibles. Además, el asma aparece con mayor frecuencia, en niños entre 8 y 11 años de edad, y en personas que viven en áreas urbanas."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView326" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
