@@ -3,6 +3,7 @@ package com.lbelmar.terrenoeco;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -67,5 +68,9 @@ public class SettingsActivity extends AppCompatActivity {
     public void cerrar(View view){
         this.finish();
     }
-
+    public void eliminarDispositivoSeleccionado(View v) {
+        editor.putString(MainActivity.getActivity().getString(R.string.nombre_clave_nombre_sensor),null);
+        editor.apply();
+        Log.d("asdfgh","1");
+    }
 }

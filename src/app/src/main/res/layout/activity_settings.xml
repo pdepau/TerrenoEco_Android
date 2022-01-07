@@ -430,6 +430,21 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView22" />
 
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/frame_border_cuadrado"
+                android:onClick="eliminarDispositivoSeleccionado"
+                android:text="Eliminar dispositivo seleccionado"
+                android:textColor="@color/morado"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
