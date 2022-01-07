@@ -99,12 +99,12 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="16dp"
                 android:background="#5BAABB"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner3"
+                app:layout_constraintTop_toBottomOf="@+id/button6"
                 app:srcCompat="@drawable/frame" />
 
             <CheckBox
@@ -435,13 +435,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="44dp"
                 android:layout_marginEnd="32dp"
-                android:background="@drawable/frame_border_cuadrado"
+                android:background="@drawable/frame_22"
+                android:backgroundTint="@color/Rogo"
                 android:onClick="eliminarDispositivoSeleccionado"
                 android:text="Eliminar dispositivo seleccionado"
-                android:textColor="@color/morado"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
