@@ -4,6 +4,10 @@ package com.lbelmar.terrenoeco;
 // Descripcion: Administra el servicio de escuchar beacons
 // Fecha: 15/10/2021
 // -------------------------------------------------------
+// Autor: Adrian Maldonado
+// Descripcion: Funcionalidad con el nodo de las preferencias
+// Fecha: 4/01/2022
+// -------------------------------------------------------
 
 import android.annotation.SuppressLint;
 import android.app.IntentService;
@@ -31,7 +35,6 @@ import androidx.annotation.RequiresApi;
 import com.lbelmar.terrenoeco.ui.sensor.SensorFragment;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -55,8 +58,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
     //Deteccion de problemas en el beacon
     long contador = 1;
-    // --------------------------------------------------------------
-    // --------------------------------------------------------------
+
     //Escaner bluetooth
     private BluetoothLeScanner elEscanner;
     private ScanCallback callbackDelEscaneo = null;
@@ -104,8 +106,6 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
      */
     public void parar() {
 
-        Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.parar() ");
-
         if (this.seguir == false) {
             return;
         }
@@ -115,16 +115,11 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
         this.seguir = false;
         this.stopSelf();
 
-        Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.parar() : acaba ");
-
     }
 
-    // -----r----------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------
     public void onDestroy() {
-
-        Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onDestroy() ");
-
         this.parar(); // posiblemente no haga falta, si stopService() ya se carga el servicio y su worker thread
     }
 
@@ -142,9 +137,6 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        //SensorFragment.actualizarTextoMedida("Servicio arrancado");
-
-        /* default */
         long tiempoDeEspera = intent.getLongExtra("tiempoDeEspera", /* default */ 50000);
         this.seguir = true;
 
@@ -152,33 +144,20 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
         idNotificacionServicio = gestorNotidicaciones.crearNotificacionServicio(elIntentDelServicio, "Servicio", "TExto y tal");
 
         // esto lo ejecuta un WORKER THREAD !
-
         buscarEsteDispositivoBTLE(sharedPref.getString(MainActivity.getActivity().getString(R.string.nombre_clave_nombre_sensor), null));
-        Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: empieza : thread=" + Thread.currentThread().getId());
 
         try {
-
             while (this.seguir) {
-                Log.d("contador", " ServicioEscucharBeacons.onHandleIntent: tras la espera:  " + contador);
                 contador++;
-
                 if (contador > 1) {
                     gestorNotidicaciones.actualizarNotificacionServicio(idNotificacionServicio, elIntentDelServicio, "Problema con el sensor", "Puede que el sensor se haya desconectado, revise la conexión ");
                 }
                 Thread.sleep(tiempoDeEspera);
             }
-
-            Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent : tarea terminada ( tras while(true) )");
-
         } catch (InterruptedException e) {
             // Restore interrupt status.
-            Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleItent: problema con el thread");
-
             Thread.currentThread().interrupt();
         }
-
-        Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleItent: termina");
-
 
     }
     // --------------------------------------------------------------
@@ -189,34 +168,24 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void buscarTodosLosDispositivosBTLE() {
-        Log.d(ETIQUETA_LOG, " buscarTodosLosDispositivosBTL(): empieza ");
-
-        Log.d(ETIQUETA_LOG, " buscarTodosLosDispositivosBTL(): instalamos scan callback ");
 
         this.callbackDelEscaneo = new ScanCallback() {
             @Override
             public void onScanResult(int callbackType, ScanResult resultado) {
                 super.onScanResult(callbackType, resultado);
-                Log.d(ETIQUETA_LOG, " buscarTodosLosDispositivosBTL(): onScanResult() ");
-
                 mostrarInformacionDispositivoBTLE(resultado);
             }
 
             @Override
             public void onBatchScanResults(List<ScanResult> results) {
                 super.onBatchScanResults(results);
-                Log.d(ETIQUETA_LOG, " buscarTodosLosDispositivosBTL(): onBatchScanResults() ");
             }
 
             @Override
             public void onScanFailed(int errorCode) {
                 super.onScanFailed(errorCode);
-                Log.d(ETIQUETA_LOG, " buscarTodosLosDispositivosBTL(): onScanFailed() ");
-
             }
         };
-
-        Log.d(ETIQUETA_LOG, " buscarTodosLosDispositivosBTL(): empezamos a escanear ");
 
         this.elEscanner.startScan(this.callbackDelEscaneo);
 
@@ -283,10 +252,6 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void buscarEsteDispositivoBTLE(final String dispositivoBuscado) {
-        Log.d(ETIQUETA_LOG, " buscarEsteDispositivoBTLE(): empieza ");
-
-        Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): instalamos scan callback ");
-
         // super.onScanResult(ScanSettings.SCAN_MODE_LOW_LATENCY, result); para ahorro de energía
 
         this.callbackDelEscaneo = new ScanCallback() {
@@ -295,26 +260,24 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
                 super.onScanResult(callbackType, resultado);
 
                 if (sharedPref.getString(MainActivity.getActivity().getString(R.string.nombre_clave_nombre_sensor), null) != null) {
-                    Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): onScanResult() ");
+
                     contador = 0;
                     Date date = new Date();
-
 
                     byte[] bytes = resultado.getScanRecord().getBytes();
                     TramaIBeacon tib = new TramaIBeacon(bytes);
 
-                    Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): dispositivo escaneado UUID:  " + Arrays.toString(tib.getUUID()));
-                    // Esto es el valor de la medida
-
                     ultimaMedida = Utilidades.bytesToInt(tib.getMinor());
 
+                    //Calibra la media
                     int medidaCalibrada = ultimaMedida + valorCalibracion;
 
+                    //Actualiza la media
                     mediaDistanciaSensorAlMovil += (resultado.getRssi() - mediaDistanciaSensorAlMovil) / 4;
                     String distancia = distanciaSensor.distanciaRelativa(mediaDistanciaSensorAlMovil);
                     SensorFragment.actualizarTextoDistancia(distancia);
 
-
+                    //Notificacion cuando el valor es muy alto
                     Integer valorUmbralAlto = SensorFragment.umbralAlto;
                     if (medidaCalibrada > valorUmbralAlto) {
                         if (idNotificacionAlertaMedida == 0) {
@@ -322,13 +285,11 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
                         }
                         gestorNotidicaciones.actualizarNotificacionAlertas(idNotificacionAlertaMedida, "ZONA ALTAMENTE CONTAMINADA", "Se ha detectado un valor de " + medidaCalibrada + " en la zona.");
                     }
-
                     gestorNotidicaciones.actualizarNotificacionServicio(idNotificacionServicio, elIntentDelServicio, "Nueva medida", "Fecha " + date.toString());
 
                     // Objeto medicion constructor
                     if (getLocation() != null) {
                         Medida medida = new Medida(medidaCalibrada, getLocation().getLatitude(), getLocation().getLongitude());
-                        Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): medida" + medida.toString());
 
                         // Envia el objeto por la logica
                         Logica.guardarMedida(medida);
@@ -342,8 +303,6 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
                 } else {
                     mostrarInformacionDispositivoBTLE(resultado);
                 }
-
-
             }
 
             @Override
@@ -359,14 +318,12 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
             }
         };
 
-
+        //En caso de que no tengas un beacon seleccionado busca todos los beacons y los  muestra
         if (sharedPref.getString(MainActivity.getActivity().getString(R.string.nombre_clave_nombre_sensor), null) != null) {
             List<ScanFilter> sf = Collections.singletonList(new ScanFilter.Builder().setDeviceName(dispositivoBuscado).build());
             ScanSettings settings = new ScanSettings.Builder().setScanMode(ScanSettings.CALLBACK_TYPE_ALL_MATCHES).build();
-            Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): empezamos a escanear buscando: " + dispositivoBuscado);
             this.elEscanner.startScan(sf, settings, this.callbackDelEscaneo);
         } else {
-
             this.elEscanner.startScan(this.callbackDelEscaneo);
         }
 
@@ -400,34 +357,24 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void inicializarBlueTooth() {
-        Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): obtenemos adaptador BT ");
-
         BluetoothAdapter bta = BluetoothAdapter.getDefaultAdapter();
 
-        Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): habilitamos adaptador BT ");
-
         bta.enable();
-
-        Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): habilitado =  " + bta.isEnabled());
-
-        Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): estado =  " + bta.getState());
-
-        Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): obtenemos escaner btle ");
 
         this.elEscanner = bta.getBluetoothLeScanner();
 
         if (this.elEscanner == null) {
-            Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): Socorro: NO hemos obtenido escaner btle  !!!!");
 
         }
-
-        Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): voy a perdir permisos (si no los tuviera) !!!!");
 
     } // ()
 
     Criteria criterio = new Criteria();
     static String proveedor;
 
+    /**
+     * Empieza el servicio de la localiacion
+     */
     @SuppressLint("MissingPermission")
     public void empezarServicioLocalizacion() {
         manejador = (LocationManager) MainActivity.getContext().getSystemService(LOCATION_SERVICE);
@@ -442,21 +389,28 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
     }
 
+    /**
+     * Devuelve la ultima ubicacion guardada
+     *
+     * @return Localizacion
+     */
     public static Location getLocation() {
         ultimaLocalizacion = manejador.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (ultimaLocalizacion != null) {
             MainActivity.centrarMapaEnUbicacion(ultimaLocalizacion.getLatitude(), ultimaLocalizacion.getLongitude());
         }
-
-
         return ultimaLocalizacion;
     }
 
+    /**
+     * Se llama cuando la ubicacion cambie
+     *
+     * @param location
+     */
     @Override
     public void onLocationChanged(@NonNull Location location) {
         ultimaLocalizacion = location;
         MainActivity.centrarMapaEnUbicacion(location.getLatitude(), location.getLongitude());
-        Log.d("Localizacion", location.toString() + "123");
     }
 
 } // class

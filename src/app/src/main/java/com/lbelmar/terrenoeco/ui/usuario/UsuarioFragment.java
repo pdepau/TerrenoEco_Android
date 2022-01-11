@@ -1,5 +1,11 @@
 package com.lbelmar.terrenoeco.ui.usuario;
 
+// -------------------------------------------------------
+// Autor: Pau Blanes
+// Descripcion: UsuarioFragment
+// Fecha: 28/12/2021
+// -------------------------------------------------------
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,7 +35,6 @@ public class UsuarioFragment extends Fragment {
 
         binding = FragmentUsuarioBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
 
         return root;
     }

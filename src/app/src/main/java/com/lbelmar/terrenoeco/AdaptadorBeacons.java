@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class AdaptadorBeacons extends RecyclerView.Adapter<AdaptadorBeacons.ViewHolder> {
 
-    private ArrayList<String> localDataSet;
+    private final ArrayList<String> localDataSet;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
 
@@ -83,7 +83,6 @@ public class AdaptadorBeacons extends RecyclerView.Adapter<AdaptadorBeacons.View
                 Log.d("a", localDataSet.get(position) + "");
                 editor.putString(MainActivity.getActivity().getString(R.string.nombre_clave_nombre_sensor),localDataSet.get(position));
                 editor.apply();
-
                 SensorFragment.actualizarVisibilidadRecycler();
             }
         });

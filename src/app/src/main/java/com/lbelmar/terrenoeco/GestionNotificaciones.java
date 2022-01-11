@@ -1,7 +1,7 @@
 package com.lbelmar.terrenoeco;
 // -------------------------------------------------------
 // Autor: Adrian Maldonado
-// Descripcion: AGestiona las notificaciones de la app
+// Descripcion: Gestiona las notificaciones de la app
 // Fecha: 15/10/2021
 // -------------------------------------------------------
 import android.app.NotificationChannel;
@@ -92,7 +92,13 @@ public class GestionNotificaciones {
         return notificationId;
     }
 
-
+    /**
+     * Actualiza la notifiacion de la alerta
+     *
+     * @param idNotificacion
+     * @param titulo
+     * @param descripcion
+     */
     public void actualizarNotificacionAlertas(int idNotificacion, String titulo, String descripcion){
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.getContext(), CHANNEL_ID)

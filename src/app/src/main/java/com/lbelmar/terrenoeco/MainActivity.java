@@ -63,12 +63,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Log.d(ETIQUETA_LOG, " onCreate(): empieza ");
         mContext = this;
         mActivity = this;
-        /**
-         * Parte de las pestañas
-         */
+
+        //Parte de las pestañas
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -172,11 +172,21 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Funcion para abrir la vista Salud
+     *
+     * @param v
+     */
     public void abrirSalud(View v) {
         Intent intent = new Intent(getContext(), SaludActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Elimina el dispositivo guardado en preferences
+     *
+     * @param v
+     */
     public void eliminarDispositivoSeleccionado(View v) {
         editor.putString(MainActivity.getActivity().getString(R.string.nombre_clave_nombre_sensor),null);
         editor.apply();

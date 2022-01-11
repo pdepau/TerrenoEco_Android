@@ -13,7 +13,7 @@ public class TramaIBeacon {
     private byte[] minor = null; // 2 bytes
     private byte txPower = 0; // 1 byte
 
-    private byte[] losBytes;
+    private final byte[] losBytes;
 
     private byte[] advFlags = null; // 3 bytes
     private byte[] advHeader = null; // 2 bytes

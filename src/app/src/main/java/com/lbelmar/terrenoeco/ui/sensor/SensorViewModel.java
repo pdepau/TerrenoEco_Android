@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 public class SensorViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    private final MutableLiveData<String> mText;
 
     public SensorViewModel() {
         mText = new MutableLiveData<>();

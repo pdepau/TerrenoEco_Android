@@ -1,13 +1,12 @@
 package com.lbelmar.terrenoeco;
 // -------------------------------------------------------
 // Autor: Adrian Maldonado
-// Descripcion: Gestiona las notificaciones de la app
+// Descripcion: Gestiona la media diaria del usuario
 // Fecha: 18/10/2021
 // -------------------------------------------------------
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Debug;
 import android.util.Log;
 
 import com.lbelmar.terrenoeco.ui.sensor.SensorFragment;
@@ -18,12 +17,9 @@ import java.util.Set;
 
 public class MediaDiaria {
 
-
-    /**
-     * Horas en las que trabajará la media
-     */
-    private int horaInicioJornada;
-    private int horaFinalJornada;
+    //Horas en las que trabajará la media
+    private final int horaInicioJornada;
+    private final int horaFinalJornada;
 
     private Float media;
     private int minimo;
@@ -52,15 +48,24 @@ public class MediaDiaria {
         cuantas = sharedPref.getInt(MainActivity.getActivity().getString(R.string.nombre_clave_cantidad_media), 1);
 
         dia = sharedPref.getInt(MainActivity.getActivity().getString(R.string.nombre_clave_dia_de_la_media), 1);
-        mes = new Date().getMonth()+1;
-
+        mes = new Date().getMonth() + 1;
 
     }
 
+    /**
+     * Devuelve el minimo
+     *
+     * @return
+     */
     public int getMinimo() {
         return minimo;
     }
 
+    /**
+     * Fuerza el minimo a ser ese valor
+     *
+     * @param minimo
+     */
     public void setMinimo(int minimo) {
         this.minimo = minimo;
         editor.putInt(MainActivity.getActivity().getString(R.string.nombre_clave_minimo_diario), minimo);
@@ -68,10 +73,20 @@ public class MediaDiaria {
         editor.apply();
     }
 
+    /**
+     * Devuelve el maximo
+     *
+     * @return
+     */
     public int getMaximo() {
         return maximo;
     }
 
+    /**
+     * Fuerza el maximo a ser ese valor
+     *
+     * @param maximo
+     */
     public void setMaximo(int maximo) {
         this.maximo = maximo;
         editor.putInt(MainActivity.getActivity().getString(R.string.nombre_clave_maximo_diario), maximo);
@@ -79,7 +94,7 @@ public class MediaDiaria {
     }
 
     /**
-     * Devuelve la nedia
+     * Devuelve la media
      *
      * @return
      */
@@ -99,7 +114,6 @@ public class MediaDiaria {
 
     }
 
-
     /**
      * Actualiza la media diaria añadiendo el valor
      *
@@ -108,7 +122,7 @@ public class MediaDiaria {
     public void actualizarMedia(int valor) {
 
         if (comprobarHora()) {
-            if (media.isNaN()){
+            if (media.isNaN()) {
                 this.setMedia(valor);
             }
             media += (valor - media) / cuantas;
@@ -120,8 +134,6 @@ public class MediaDiaria {
             editor.putInt(MainActivity.getActivity().getString(R.string.nombre_clave_cantidad_media), cuantas);
             editor.apply();
         }
-
-
     }
 
     /**
@@ -131,7 +143,6 @@ public class MediaDiaria {
      */
     public boolean comprobarHora() {
 
-
         Date date = new Date();
         int hora = date.getHours();
         int diaMedida = date.getDate();
@@ -140,16 +151,13 @@ public class MediaDiaria {
         if (dia != diaMedida) {
 
 
+            Set<String> historico = sharedPref.getStringSet(MainActivity.getActivity().getString(R.string.nombre_clave_historico), new HashSet<String>());
 
-            Set<String> historico = sharedPref.getStringSet(MainActivity.getActivity().getString(R.string.nombre_clave_historico),new HashSet<String>());
-
-            String historicoHoy = "{Maximo:"+maximo+",Minimo:"+minimo+",Media:"+media+",Dia:"+dia+",Mes:"+mes+"}";
+            String historicoHoy = "{Maximo:" + maximo + ",Minimo:" + minimo + ",Media:" + media + ",Dia:" + dia + ",Mes:" + mes + "}";
 
             historico.add(historicoHoy);
 
-            Log.d("asd",historico.toString());
-
-            editor.putStringSet(MainActivity.getActivity().getString(R.string.nombre_clave_historico),historico);
+            editor.putStringSet(MainActivity.getActivity().getString(R.string.nombre_clave_historico), historico);
 
             editor.putInt(MainActivity.getActivity().getString(R.string.nombre_clave_cantidad_media), 1);
             editor.putInt(MainActivity.getActivity().getString(R.string.nombre_clave_dia_de_la_media), diaMedida);
@@ -160,22 +168,23 @@ public class MediaDiaria {
             maximo = 0;
             minimo = 64000;
             media = 1F;
-            dia=diaMedida;
-            mes=mesMedida;
-            cuantas=1;
+            dia = diaMedida;
+            mes = mesMedida;
+            cuantas = 1;
 
             editor.apply();
         }
         if (hora < horaInicioJornada) {
             return false;
-        } else if (hora >= horaFinalJornada) {
-            return false;
-        } else {
-            return true;
-        }
+        } else return hora < horaFinalJornada;
 
     }
 
+    /**
+     * Comprueba si el valor es algun pico diario
+     *
+     * @param valor
+     */
     private void picosDiarios(int valor) {
 
         if (valor > maximo) {

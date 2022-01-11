@@ -39,22 +39,27 @@ public class SensorFragment extends Fragment {
     private SensorViewModel sensorViewModel;
     private FragmentSensorBinding binding;
 
+    //Items de la vista
     public static TextView textoMedida;
     public static TextView textoMinimo;
     public static TextView textoMaximo;
     public static TextView textoDistancia;
     public static ImageView iconoDistancia;
 
+    //Preferencias
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
 
+    //Items de la vista
     static ImageView fondoColorMedia;
     static ImageView fondoColorMaximo;
     static ImageView fondoColorMinimo;
 
+    //Valores para los umbrales
     public static Integer umbralAlto = 40;
     public static Integer umbralMedio = 20;
 
+    //Recycler beacons
     public static ArrayList<String> arrayList = new ArrayList<String>();
     static RecyclerView recyclerView;
     static TextView textView;
@@ -72,7 +77,7 @@ public class SensorFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        
+
         iconoDistancia = view.findViewById(R.id.iconoDistancia);
         textoMedida = view.findViewById(R.id.textoMedia);
         textoMinimo = view.findViewById(R.id.textoMinimo);
@@ -87,11 +92,12 @@ public class SensorFragment extends Fragment {
         sharedPref = MainActivity.getActivity().getPreferences(Context.MODE_PRIVATE);
         editor = sharedPref.edit();
 
+        //Recuperar los valores de los umbrales de las preferencias
         int max = sharedPref.getInt(MainActivity.getActivity().getString(R.string.nombre_clave_maximo_diario), 0);
         int min = sharedPref.getInt(MainActivity.getActivity().getString(R.string.nombre_clave_minimo_diario), 64000);
         float mid = sharedPref.getFloat(MainActivity.getActivity().getString(R.string.nombre_clave_media), 0);
 
-        Log.d("adsa", max + " : " + min);
+        //Aactualizar los valores en la vista
         actualizarTextoMinimo(min + "");
         actualizarTextoMaximo(max + "");
         actualizarTextoMedida(mid + "");
@@ -113,7 +119,6 @@ public class SensorFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("aasd", "asd");
         if (sharedPref.getString(MainActivity.getActivity().getString(R.string.nombre_clave_nombre_sensor), null) != null) {
             recyclerView.setVisibility(View.GONE);
             textView.setVisibility(View.GONE);
@@ -130,6 +135,11 @@ public class SensorFragment extends Fragment {
         binding = null;
     }
 
+    /**
+     * Actualiza la lista de los beacons
+     *
+     * @param lista
+     */
     public static void actualizarRecyclerBeacons(ArrayList<String> lista) {
         arrayList = lista;
     }
@@ -229,7 +239,6 @@ public class SensorFragment extends Fragment {
         String textoCerca = MainActivity.getContext().getResources().getString(R.string.textoSensorCerca);
         String textoMuyCerca = MainActivity.getContext().getResources().getString(R.string.textoSensorMuyLejos);
 
-
         if (texto.equals(textoMuyLejos)) {
             iconoDistancia.setImageResource(R.drawable.ic_mala);
         } else if (texto.equals(textoLejos)) {
@@ -242,17 +251,29 @@ public class SensorFragment extends Fragment {
 
     }
 
+    /**
+     * Abrir la vista Settings
+     *
+     * No es funcional, llama a la funcion de MainActivity pero es necesaria
+     *
+     * @param v
+     */
     public void abrirSettings(View v) {
         Intent intent = new Intent(getContext(), SettingsActivity.class);
         startActivity(intent);
     }
 
-    public static void aaa(int a, String b) {
-        Log.d("ADRA", b + "aa");
+    /**
+     * Funcion que llama la Logica cuando ha obtenido el tipo de la BBDD
+     *
+     * @param CODIGO_ERROR
+     * @param umbrales
+     */
+    public static void callbackObtenerTipo(int CODIGO_ERROR, String umbrales) {
+        Log.d("ADRA", umbrales + "aa");
 
-
-        if (a == 200) {
-            String[] strings = b.split(":");
+        if (CODIGO_ERROR == 200) {
+            String[] strings = umbrales.split(":");
 
             umbralMedio = Integer.parseInt((strings[4].split(","))[0]);
             umbralAlto = Integer.parseInt((strings[3].split(","))[0]);
