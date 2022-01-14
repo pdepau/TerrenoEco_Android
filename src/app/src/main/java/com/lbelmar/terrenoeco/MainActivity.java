@@ -11,6 +11,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -53,18 +54,21 @@ public class MainActivity extends AppCompatActivity {
     //Booleano para que no se actualize constantemente el mapa con cada medida
     static boolean esperarParaActualizarMapa = false;
 
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
+
     // --------------------------------------------------------------
     // --------------------------------------------------------------
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Log.d(ETIQUETA_LOG, " onCreate(): empieza ");
         mContext = this;
         mActivity = this;
-        /**
-         * Parte de las pestañas
-         */
+
+        //Parte de las pestañas
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -77,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Contexto y actividad para las clases abstractas
 
+        sharedPref = MainActivity.getActivity().getPreferences(Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
 
         /**
          * Peticion de los permisos
@@ -151,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.elIntentDelServicio = new Intent(this, ServicioEscucharBeacons.class);
 
-        this.elIntentDelServicio.putExtra("tiempoDeEspera", (long) 5000);
+        this.elIntentDelServicio.putExtra("tiempoDeEspera", (long) 2000);
         startService(this.elIntentDelServicio);
 
     } // ()
@@ -166,11 +172,26 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Funcion para abrir la vista Salud
+     *
+     * @param v
+     */
     public void abrirSalud(View v) {
         Intent intent = new Intent(getContext(), SaludActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Elimina el dispositivo guardado en preferences
+     *
+     * @param v
+     */
+    public void eliminarDispositivoSeleccionado(View v) {
+        editor.putString(MainActivity.getActivity().getString(R.string.nombre_clave_nombre_sensor),null);
+        editor.apply();
+        Log.d("asdfgh","0");
+    }
 
     /**
      *
@@ -214,7 +235,6 @@ public class MainActivity extends AppCompatActivity {
     public static Activity getActivity() {
         return mActivity;
     }
-
 
 } // class
 // --------------------------------------------------------------

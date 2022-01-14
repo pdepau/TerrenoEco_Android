@@ -71,7 +71,7 @@ public class Logica {
             @Override
             public void callback(int codigo, String cuerpo) {
                 //Log.d("ADRA", cuerpo);
-                SensorFragment.aaa(codigo,cuerpo);
+                SensorFragment.callbackObtenerTipo(codigo,cuerpo);
             }
         }};
 

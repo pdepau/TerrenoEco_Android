@@ -14,7 +14,7 @@ public class DistanciaSensor {
     float umbralCerca =  -40;
 
 
-    private Resources resources;
+    private final Resources resources;
 
     /**
      * Constructor
